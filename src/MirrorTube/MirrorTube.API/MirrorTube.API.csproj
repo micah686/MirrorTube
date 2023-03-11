@@ -6,8 +6,20 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+	<PropertyGroup>
+		<BeautySharedRuntimeMode>False</BeautySharedRuntimeMode>
+		<BeautyLibsDir>./libs</BeautyLibsDir>
+		<DisableBeauty>False</DisableBeauty>
+		<BeautyOnPublishOnly>False</BeautyOnPublishOnly>
+		<BeautyEnableDebugging>False</BeautyEnableDebugging>
+		<BeautyUsePatch>True</BeautyUsePatch>
+		<BeautyLogLevel>Info</BeautyLogLevel>
+	</PropertyGroup>
+	
   <ItemGroup>    
     <PackageReference Include="Duende.IdentityServer" Version="6.2.3" />    
+    <PackageReference Include="FluentStorage" Version="5.0.0" />    
+    <PackageReference Include="nulastudio.NetBeauty" Version="2.1.1" />    
     <PackageReference Include="SecureStore" Version="1.1.0" />    
     <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />    
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
