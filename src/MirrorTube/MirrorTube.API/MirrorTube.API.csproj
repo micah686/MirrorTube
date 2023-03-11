@@ -40,4 +40,8 @@
     <Folder Include="Database\Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MirrorTube.Common\MirrorTube.Common.csproj" />
+  </ItemGroup>
+
 </Project>

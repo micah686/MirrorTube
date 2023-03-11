@@ -1,9 +1,12 @@
-using Hangfire;
-using Hangfire.Dashboard;
-using Hangfire.Storage.SQLite;
+global using MirrorTube.Common;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MirrorTube.API.Database;
+using Hangfire;
+using Hangfire.Dashboard;
+using Hangfire.Storage.SQLite;
+
 
 namespace MirrorTube.API
 {
@@ -13,7 +16,8 @@ namespace MirrorTube.API
 
         public static void Main(string[] args)
         {
-
+            StartupChecks.RunStartupChecks();
+            
             #region Builder
             var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +31,7 @@ namespace MirrorTube.API
             //Identity
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlite($"Data Source={Path.Combine(BasePath, "Data.db")}");
+                options.UseSqlite($"Data Source={Globals.DbIdentity}");
             });
             builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
@@ -38,10 +42,9 @@ namespace MirrorTube.API
             }).AddEntityFrameworkStores<ApplicationDbContext>();
 
             //Hangfire
-            GlobalConfiguration.Configuration.UseSQLiteStorage(Path.Combine(BasePath, "Hangfire.db"));
             builder.Services.AddHangfire(configuration =>
             {
-                configuration.UseSQLiteStorage(Path.Combine(BasePath, "Hangfire.db"));
+                configuration.UseSQLiteStorage(Globals.DbHangfire);
                 configuration.UseDarkModeSupportForDashboard();
                 configuration.UseSimpleAssemblyNameTypeSerializer();
                 configuration.UseRecommendedSerializerSettings();
