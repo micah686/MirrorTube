@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MirrorTube.API.Database.Migrations
+namespace MirrorTube.API.Database.Identity.Migrations
 {
+    /// <inheritdoc />
     public partial class CreateIdentitySchema : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -192,6 +194,7 @@ namespace MirrorTube.API.Database.Migrations
                 unique: true);
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

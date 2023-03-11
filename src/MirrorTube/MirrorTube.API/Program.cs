@@ -6,7 +6,7 @@ using MirrorTube.API.Database;
 using Hangfire;
 using Hangfire.Dashboard;
 using Hangfire.Storage.SQLite;
-
+using MirrorTube.API.Database.Identity;
 
 namespace MirrorTube.API
 {
@@ -29,7 +29,7 @@ namespace MirrorTube.API
             builder.Services.AddSwaggerGen();
 
             //Identity
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            builder.Services.AddDbContext<AppIdentityDbContext>(options =>
             {
                 options.UseSqlite($"Data Source={Globals.DbIdentity}");
             });
@@ -39,7 +39,7 @@ namespace MirrorTube.API
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireDigit = false;                
-            }).AddEntityFrameworkStores<ApplicationDbContext>();
+            }).AddEntityFrameworkStores<AppIdentityDbContext>();
 
             //Hangfire
             builder.Services.AddHangfire(configuration =>

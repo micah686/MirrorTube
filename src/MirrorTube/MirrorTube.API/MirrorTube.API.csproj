@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-	<PropertyGroup>
+	<!--<PropertyGroup>
 		<BeautySharedRuntimeMode>False</BeautySharedRuntimeMode>
 		<BeautyLibsDir>./libs</BeautyLibsDir>
 		<DisableBeauty>False</DisableBeauty>
@@ -14,7 +14,7 @@
 		<BeautyEnableDebugging>False</BeautyEnableDebugging>
 		<BeautyUsePatch>True</BeautyUsePatch>
 		<BeautyLogLevel>Info</BeautyLogLevel>
-	</PropertyGroup>
+	</PropertyGroup>-->
 	
   <ItemGroup>    
     <PackageReference Include="Duende.IdentityServer" Version="6.2.3" />    
@@ -28,15 +28,11 @@
 	  <PackageReference Include="Hangfire.Storage.SQLite" Version="0.3.3" />
 	  <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.8" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.8" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.3" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.3">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Database\Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
