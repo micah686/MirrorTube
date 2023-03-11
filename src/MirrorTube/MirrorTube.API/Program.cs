@@ -1,3 +1,6 @@
+using Hangfire;
+using Hangfire.Dashboard;
+using Hangfire.Storage.SQLite;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MirrorTube.API.Database;
@@ -10,6 +13,8 @@ namespace MirrorTube.API
 
         public static void Main(string[] args)
         {
+
+            #region Builder
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -19,6 +24,7 @@ namespace MirrorTube.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            //Identity
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlite($"Data Source={Path.Combine(BasePath, "Data.db")}");
@@ -31,6 +37,22 @@ namespace MirrorTube.API
                 options.Password.RequireDigit = false;                
             }).AddEntityFrameworkStores<ApplicationDbContext>();
 
+            //Hangfire
+            GlobalConfiguration.Configuration.UseSQLiteStorage(Path.Combine(BasePath, "Hangfire.db"));
+            builder.Services.AddHangfire(configuration =>
+            {
+                configuration.UseSQLiteStorage(Path.Combine(BasePath, "Hangfire.db"));
+                configuration.UseDarkModeSupportForDashboard();
+                configuration.UseSimpleAssemblyNameTypeSerializer();
+                configuration.UseRecommendedSerializerSettings();
+                configuration.UseDashboardMetrics(new DashboardMetric[]
+                    { DashboardMetrics.ScheduledCount, DashboardMetrics.ProcessingCount, DashboardMetrics.EnqueuedAndQueueCount, DashboardMetrics.SucceededCount, DashboardMetrics.FailedCount });
+            });
+            builder.Services.AddHangfireServer();
+            #endregion
+
+
+            #region App
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -46,8 +68,10 @@ namespace MirrorTube.API
 
 
             app.MapControllers();
+            app.UseHangfireDashboard();
 
             app.Run();
+            #endregion
         }
     }
 }
