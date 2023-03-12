@@ -7,6 +7,8 @@ using Hangfire;
 using Hangfire.Dashboard;
 using Hangfire.Storage.SQLite;
 using MirrorTube.API.Database.Identity;
+using MirrorTube.API.Interfaces;
+using MirrorTube.API.Services;
 
 namespace MirrorTube.API
 {
@@ -52,6 +54,8 @@ namespace MirrorTube.API
                     { DashboardMetrics.ScheduledCount, DashboardMetrics.ProcessingCount, DashboardMetrics.EnqueuedAndQueueCount, DashboardMetrics.SucceededCount, DashboardMetrics.FailedCount });
             });
             builder.Services.AddHangfireServer();
+
+            builder.Services.AddTransient<IStorageService, StorageService>();
             #endregion
 
 
