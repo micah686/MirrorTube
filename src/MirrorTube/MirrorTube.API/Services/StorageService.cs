@@ -17,10 +17,7 @@ namespace MirrorTube.API.Services
         public IBlobStorage GetStorageBlob()
         {
             IBlobStorage storage;
-            var settings = new ConfigurationBuilder<ISettingsRoot>()
-                .UseJsonFile("config.json")
-                .Build();
-            var storageSettings = settings.StorageSettings;
+            var storageSettings = Globals.ConfigSettings.StorageSettings;
             if(storageSettings == null)
             {
                 storage = StorageFactory.Blobs.DirectoryFiles(Globals.UserDataPath);
@@ -40,6 +37,7 @@ namespace MirrorTube.API.Services
         private IBlobStorage GetLocalStorage(ILocalConfig localConfig)
         {
             IBlobStorage storage;
+            if(localConfig.DirectoryPath == null) { localConfig.DirectoryPath = Globals.UserDataPath; }
             storage = StorageFactory.Blobs.DirectoryFiles(localConfig.DirectoryPath);
             return storage;
         }

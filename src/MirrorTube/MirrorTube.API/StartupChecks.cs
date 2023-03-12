@@ -1,4 +1,6 @@
-﻿using MirrorTube.Common.Secure;
+﻿using Config.Net;
+using MirrorTube.API.Configuration;
+using MirrorTube.Common.Secure;
 namespace MirrorTube.API
 {
     public static class StartupChecks
@@ -6,6 +8,7 @@ namespace MirrorTube.API
         internal static void RunStartupChecks()
         {
             CreateDirectories();
+            Globals.ConfigSettings = new ConfigurationBuilder<ISettingsRoot>().UseJsonFile(Path.Combine(Globals.ServerDataPath, "config.json")).Build();
             if (!SecureStore.DoesSecureStoreExist())
             {
                 SecureStore.CreateSecureStore();
