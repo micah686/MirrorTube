@@ -55,7 +55,9 @@ namespace MirrorTube.API
             });
             builder.Services.AddHangfireServer();
 
+
             builder.Services.AddTransient<IStorageService, StorageService>();
+            builder.Services.AddTransient<IDownloadService, DownloadService>();
             #endregion
 
 
