@@ -2,10 +2,10 @@
 {
     public interface IDownloadService
     {
-        Task DownloadVideo(string url);
-        Task DownloadVideoPlaylist(string url);
+        public Task DownloadVideo(string url);
+        public Task DownloadVideoPlaylist(string url);
 
-        Task DownloadAudio(string url);
-        Task DownloadAudioPlaylist(string url);
+        public Task DownloadAudio(string url);
+        public Task DownloadAudioPlaylist(string url);
     }
 }

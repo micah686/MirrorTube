@@ -18,7 +18,8 @@ namespace MirrorTube.API
 
         private static void CreateDirectories()
         {
-            Directory.CreateDirectory(Globals.ServerDataPath);            
+            Directory.CreateDirectory(Globals.ServerDataPath);
+            Directory.CreateDirectory(Globals.UserDataPath);
         }
 
         private static void DownloadBinaries()
