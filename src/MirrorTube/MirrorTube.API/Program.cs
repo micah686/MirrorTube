@@ -9,6 +9,7 @@ using Hangfire.Storage.SQLite;
 using MirrorTube.API.Database.Identity;
 using MirrorTube.API.Interfaces;
 using MirrorTube.API.Services;
+using MirrorTube.API.Database.UserData;
 
 namespace MirrorTube.API
 {
@@ -58,6 +59,14 @@ namespace MirrorTube.API
 
             builder.Services.AddTransient<IStorageService, StorageService>();
             builder.Services.AddTransient<IDownloadService, DownloadService>();
+
+
+            builder.Services.AddDbContext<UserDatadbContext>(options =>
+            {
+                options.UseSqlite($"Data Source={Globals.DbMirrorTube}");
+            });
+
+
             #endregion
 
 
