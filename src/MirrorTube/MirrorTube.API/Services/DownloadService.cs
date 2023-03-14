@@ -1,7 +1,9 @@
 ﻿using FluentStorage.Blobs;
 using MirrorTube.API.Database.UserData;
 using MirrorTube.API.Interfaces;
+using Newtonsoft.Json;
 using YoutubeDLSharp;
+using YoutubeDLSharp.Metadata;
 using YoutubeDLSharp.Options;
 
 namespace MirrorTube.API.Services
@@ -12,9 +14,11 @@ namespace MirrorTube.API.Services
         private readonly string _tempDownloadPath = Path.Combine(Globals.UserDataPath, "temp");
         private readonly IStorageService _storageService;
         private readonly IBlobStorage _storage;
-        public DownloadService(IStorageService storageService)
+        private readonly IVideoDbWriterService _videoDbWriterService;
+        public DownloadService(IStorageService storageService, IVideoDbWriterService videoDbWriter)
         {
             _storageService = storageService;
+            _videoDbWriterService = videoDbWriter;
 
             _storage = _storageService.GetStorageBlob();
         }        
@@ -68,16 +72,23 @@ namespace MirrorTube.API.Services
             var output = await ytdl.RunVideoDownload(url, overrideOptions:CreateOptionSetInstance());
             var filepath = output.Data;
 
-
-            var infoJsonPath = Path.ChangeExtension(filepath, "info.json");
-            if (File.Exists(infoJsonPath))
+            if (!string.IsNullOrEmpty(filepath))
             {
-                var blobInfoJsonPath = infoJsonPath.Replace($"{Path.Combine(_tempDownloadPath, randomDirName)}\\", string.Empty);
-                await _storage.WriteFileAsync(blobInfoJsonPath, infoJsonPath);
-            }
+                var infoJsonPath = Path.ChangeExtension(filepath, "info.json");
+                if (File.Exists(infoJsonPath))
+                {
+                    var blobInfoJsonPath = infoJsonPath.Replace($"{Path.Combine(_tempDownloadPath, randomDirName)}\\", string.Empty);
+                    await _storage.WriteFileAsync(blobInfoJsonPath, infoJsonPath);
+                }
 
-            var blobVideoPath = filepath.Replace($"{Path.Combine(_tempDownloadPath, randomDirName)}\\", string.Empty);
-            await _storage.WriteFileAsync(blobVideoPath, filepath);
+                var blobVideoPath = filepath.Replace($"{Path.Combine(_tempDownloadPath, randomDirName)}\\", string.Empty);
+                await _storage.WriteFileAsync(blobVideoPath, filepath);
+
+
+                await _videoDbWriterService.SaveInfoToDb(infoJsonPath);
+                var jdata = JsonConvert.DeserializeObject<VideoData>(File.ReadAllText(infoJsonPath));
+                var foo = jdata;
+            }
             Directory.Delete(Path.Combine(_tempDownloadPath, randomDirName), true);
         }
 

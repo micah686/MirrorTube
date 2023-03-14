@@ -166,10 +166,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
                     b.Property<int>("SubtitleType")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("VideoId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("automatic_captions")
                         .HasColumnType("TEXT");
 

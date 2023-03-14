@@ -7,7 +7,6 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
         [Key]
         public string PK_ID { get; set; }
 
-        public string VideoId { get; set; }
         public string LangCode { get; set; }
         public string SubtitleData { get; set; }
         public SubtitleType SubtitleType { get; set; }

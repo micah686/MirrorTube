@@ -11,7 +11,7 @@ using MirrorTube.API.Database.UserData;
 namespace MirrorTube.API.Database.UserData.Migrations
 {
     [DbContext(typeof(UserDatadbContext))]
-    [Migration("20230314035131_InitialVideoData")]
+    [Migration("20230314062302_InitialVideoData")]
     partial class InitialVideoData
     {
         /// <inheritdoc />
@@ -168,10 +168,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
 
                     b.Property<int>("SubtitleType")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("VideoId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("automatic_captions")
                         .HasColumnType("TEXT");

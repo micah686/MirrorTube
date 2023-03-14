@@ -184,7 +184,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
                 columns: table => new
                 {
                     PK_ID = table.Column<string>(type: "TEXT", nullable: false),
-                    VideoId = table.Column<string>(type: "TEXT", nullable: false),
                     LangCode = table.Column<string>(type: "TEXT", nullable: false),
                     SubtitleData = table.Column<string>(type: "TEXT", nullable: false),
                     SubtitleType = table.Column<int>(type: "INTEGER", nullable: false),

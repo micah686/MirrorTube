@@ -56,15 +56,20 @@ namespace MirrorTube.API
             });
             builder.Services.AddHangfireServer();
 
-
-            builder.Services.AddTransient<IStorageService, StorageService>();
-            builder.Services.AddTransient<IDownloadService, DownloadService>();
-
-
             builder.Services.AddDbContext<UserDatadbContext>(options =>
             {
                 options.UseSqlite($"Data Source={Globals.DbMirrorTube}");
             });
+
+            builder.Services.AddTransient<IStorageService, StorageService>();
+            builder.Services.AddTransient<IDownloadService, DownloadService>();
+            builder.Services.AddTransient<IVideoDbWriterService, VideoDbWriterService>();
+
+            builder.Services.AddAutoMapper(m =>
+            {
+                m.AddProfile<MapperProfile>();
+            });
+            
 
 
             #endregion
