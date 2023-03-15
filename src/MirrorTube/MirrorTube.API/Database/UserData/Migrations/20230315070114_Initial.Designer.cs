@@ -11,8 +11,8 @@ using MirrorTube.API.Database.UserData;
 namespace MirrorTube.API.Database.UserData.Migrations
 {
     [DbContext(typeof(UserDatadbContext))]
-    [Migration("20230314062302_InitialVideoData")]
-    partial class InitialVideoData
+    [Migration("20230315070114_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,7 @@ namespace MirrorTube.API.Database.UserData.Migrations
             modelBuilder.Entity("MirrorTube.API.Database.UserData.ModelsDto.YtDlp.FormatDataDto", b =>
                 {
                     b.Property<string>("PK_ID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("ApproximateFileSize")
@@ -35,7 +36,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("AudioCodec")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double?>("AudioSamplingRate")
@@ -45,34 +45,27 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("ContainerFormat")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DynamicRange")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Extension")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("FileSize")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Format")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FormatId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FormatNote")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FragmentBaseUrl")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<float?>("FrameRate")
@@ -88,35 +81,30 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Language")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("LanguagePreference")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ManifestUrl")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool?>("NoResume")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("PlayerUrl")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("Preference")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Protocol")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double?>("Quality")
                         .HasColumnType("REAL");
 
                     b.Property<string>("Resolution")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("SourcePreference")
@@ -126,21 +114,18 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("Url")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double?>("VideoBitrate")
                         .HasColumnType("REAL");
 
                     b.Property<string>("VideoCodec")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("VideoDataDtoPK_ID")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("VideoId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("Width")
@@ -156,14 +141,13 @@ namespace MirrorTube.API.Database.UserData.Migrations
             modelBuilder.Entity("MirrorTube.API.Database.UserData.ModelsDto.YtDlp.SubtitleDataDto", b =>
                 {
                     b.Property<string>("PK_ID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LangCode")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SubtitleData")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("SubtitleType")
@@ -187,29 +171,25 @@ namespace MirrorTube.API.Database.UserData.Migrations
             modelBuilder.Entity("MirrorTube.API.Database.UserData.ModelsDto.YtDlp.VideoDataDto", b =>
                 {
                     b.Property<string>("PK_ID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("AgeLimit")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Album")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("AlbumArtist")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("AlbumType")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("AltTitle")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Artist")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("Availability")
@@ -219,59 +199,48 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("Cast")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Categories")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Channel")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("ChannelFollowerCount")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ChannelID")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ChannelUrl")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Chapter")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ChapterId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("ChapterNumber")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Chapters")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("CommentCount")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Composer")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("ConcurrentViewCount")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Creator")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Direct")
@@ -284,7 +253,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("DisplayID")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<float?>("Duration")
@@ -294,49 +262,39 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("Episode")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("EpisodeId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("EpisodeNumber")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Extension")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Extractor")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ExtractorKey")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Format")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FormatID")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Genre")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ID")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool?>("IsLive")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("License")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("LikeCount")
@@ -346,7 +304,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Location")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("ModifiedDate")
@@ -356,11 +313,9 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PlayableInEmbed")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PlayerUrl")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("ReleaseDate")
@@ -370,7 +325,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ReleaseYear")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("RepostCount")
@@ -380,11 +334,9 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Season")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SeasonId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("SeasonNumber")
@@ -397,11 +349,9 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Series")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SeriesId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<float?>("StartTime")
@@ -414,26 +364,21 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Tags")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Thumbnail")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("Timestamp")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Track")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TrackId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("TrackNumber")
@@ -443,19 +388,15 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Uploader")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UploaderID")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UploaderUrl")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Url")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("ViewCount")
@@ -465,7 +406,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("WebpageUrl")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("PK_ID");

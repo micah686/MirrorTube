@@ -8,49 +8,51 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
     public class VideoDataDto
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Required]
         public string PK_ID { get; set; }
         
         public MetadataType ResultType { get; set; }
 
-        public string Extractor { get; set; }
+        public string? Extractor { get; set; }
 
-        public string ExtractorKey { get; set; }
+        public string? ExtractorKey { get; set; }
 
         //public VideoData[] Entries { get; set; }
 
-        public string ID { get; set; }
+        public string? ID { get; set; }
 
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
-        public ICollection<FormatDataDto> Formats { get; set; }
+        public ICollection<FormatDataDto>? Formats { get; set; }
 
-        public string Url { get; set; }
+        public string? Url { get; set; }
 
-        public string Extension { get; set; }
+        public string? Extension { get; set; }
 
-        public string Format { get; set; }
+        public string? Format { get; set; }
 
-        public string FormatID { get; set; }
+        public string? FormatID { get; set; }
 
-        public string PlayerUrl { get; set; }
+        public string? PlayerUrl { get; set; }
 
         public bool Direct { get; set; }
 
-        public string AltTitle { get; set; }
+        public string? AltTitle { get; set; }
 
-        public string DisplayID { get; set; }
+        public string? DisplayID { get; set; }
 
-        public ICollection<ThumbnailData> Thumbnails { get; set; }
+        public ICollection<ThumbnailData>? Thumbnails { get; set; }
 
-        public string Thumbnail { get; set; }
+        public string? Thumbnail { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
-        public string Uploader { get; set; }
+        public string? Uploader { get; set; }
 
-        public string License { get; set; }
+        public string? License { get; set; }
 
-        public string Creator { get; set; }
+        public string? Creator { get; set; }
 
         public DateTime? ReleaseTimestamp { get; set; }
 
@@ -64,25 +66,25 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
 
         public DateTime? ModifiedDate { get; set; }
 
-        public string UploaderID { get; set; }
+        public string? UploaderID { get; set; }
 
-        public string UploaderUrl { get; set; }
+        public string? UploaderUrl { get; set; }
 
-        public string Channel { get; set; }
+        public string? Channel { get; set; }
 
-        public string ChannelID { get; set; }
+        public string? ChannelID { get; set; }
 
-        public string ChannelUrl { get; set; }
+        public string? ChannelUrl { get; set; }
 
         public long? ChannelFollowerCount { get; set; }
 
-        public string Location { get; set; }
+        public string? Location { get; set; }
 
         [ForeignKey("subtitles")]
-        public ICollection<SubtitleDataDto> Subtitles { get; set; } //modified from dictionary
+        public ICollection<SubtitleDataDto>? Subtitles { get; set; } //modified from dictionary
 
         [ForeignKey("automatic_captions")]
-        public ICollection<SubtitleDataDto> AutomaticCaptions { get; set; } //modified from dictionary
+        public ICollection<SubtitleDataDto>? AutomaticCaptions { get; set; } //modified from dictionary
 
         public float? Duration { get; set; }
 
@@ -100,17 +102,17 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
 
         public long? CommentCount { get; set; }
 
-        public ICollection<CommentData> Comments { get; set; }
+        public ICollection<CommentData>? Comments { get; set; }
 
         public int? AgeLimit { get; set; }
 
-        public string WebpageUrl { get; set; }
+        public string? WebpageUrl { get; set; }
 
-        public string[] Categories { get; set; }
+        public string[]? Categories { get; set; }
 
-        public string[] Tags { get; set; }
+        public string[]? Tags { get; set; }
 
-        public string[] Cast { get; set; }
+        public string[]? Cast { get; set; }
 
         public bool? IsLive { get; set; }
 
@@ -122,55 +124,55 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
 
         public float? EndTime { get; set; }
 
-        public string PlayableInEmbed { get; set; }
+        public string? PlayableInEmbed { get; set; }
 
         public Availability? Availability { get; set; }
 
-        public ChapterData[] Chapters { get; set; }
+        public ChapterData[]? Chapters { get; set; }
 
-        public string Chapter { get; set; }
+        public string? Chapter { get; set; }
 
         public int? ChapterNumber { get; set; }
 
-        public string ChapterId { get; set; }
+        public string? ChapterId { get; set; }
 
-        public string Series { get; set; }
+        public string? Series { get; set; }
 
-        public string SeriesId { get; set; }
+        public string? SeriesId { get; set; }
 
-        public string Season { get; set; }
+        public string? Season { get; set; }
 
         public int? SeasonNumber { get; set; }
 
-        public string SeasonId { get; set; }
+        public string? SeasonId { get; set; }
 
-        public string Episode { get; set; }
+        public string? Episode { get; set; }
 
         public int? EpisodeNumber { get; set; }
 
-        public string EpisodeId { get; set; }
+        public string? EpisodeId { get; set; }
 
-        public string Track { get; set; }
+        public string? Track { get; set; }
 
         public int? TrackNumber { get; set; }
 
-        public string TrackId { get; set; }
+        public string? TrackId { get; set; }
 
-        public string Artist { get; set; }
+        public string? Artist { get; set; }
 
-        public string Genre { get; set; }
+        public string? Genre { get; set; }
 
-        public string Album { get; set; }
+        public string? Album { get; set; }
 
-        public string AlbumType { get; set; }
+        public string? AlbumType { get; set; }
 
-        public string AlbumArtist { get; set; }
+        public string? AlbumArtist { get; set; }
 
         public int? DiscNumber { get; set; }
 
-        public string ReleaseYear { get; set; }
+        public string? ReleaseYear { get; set; }
 
-        public string Composer { get; set; }
+        public string? Composer { get; set; }
 
         public long? SectionStart { get; set; }
 

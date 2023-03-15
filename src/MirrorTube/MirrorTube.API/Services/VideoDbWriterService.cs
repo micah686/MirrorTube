@@ -5,6 +5,8 @@ using YoutubeDLSharp.Metadata;
 using MirrorTube.API.Database.UserData.ModelsDto.YtDlp;
 using AutoMapper;
 using System.Net;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace MirrorTube.API.Services
 {
@@ -25,13 +27,36 @@ namespace MirrorTube.API.Services
             var json = JsonConvert.DeserializeObject<VideoData>(File.ReadAllText(filepath));
             if (json == null) return;
 
-            VideoDataDto foo1 = _mapper.Map<VideoDataDto>(json);
-            FormatDataDto[] foo2 = _mapper.Map<FormatDataDto[]>(json.Formats);
+            VideoDataDto videoData = _mapper.Map<VideoDataDto>(json);
+            FormatDataDto[] formatList = _mapper.Map<FormatDataDto[]>(json.Formats);
 
+            var captions = await GetSubtitleData(json.Subtitles);
             var subs = await GetSubtitleData(json.Subtitles);
+            
+            videoData.Formats = formatList;
+            videoData.Subtitles = subs;
+            videoData.AutomaticCaptions = captions;
 
-            var dbRecord = _dbContext.VideoDataDto.FirstOrDefault(x => x.ID == json.ID);
-            if(dbRecord == null) { dbRecord = new VideoDataDto(); }
+            var uniqueID = GenerateUniqueID(videoData);
+
+            try
+            {
+                var dbRecord = _dbContext.VideoDataDto.FirstOrDefault(x => x.ID == json.ID);
+                dbRecord ??= new VideoDataDto();
+
+                _dbContext.Entry(dbRecord).CurrentValues.SetValues(videoData);
+                _dbContext.Update(dbRecord);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+
+            
+
+            var d2 = _dbContext.VideoDataDto.FirstOrDefault();
         }
 
         private async Task<List<SubtitleDataDto>> GetSubtitleData(Dictionary<string, SubtitleData[]> input)
@@ -58,6 +83,22 @@ namespace MirrorTube.API.Services
                 }
             }
             return output;
+        }
+
+        private string GenerateUniqueID(VideoDataDto videoData)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(videoData.ID);
+            sb.Append(videoData.WebpageUrl);
+            sb.Append(videoData.UploadDate.ToString());
+            sb.Append(videoData.Timestamp.ToString());
+            sb.Append(videoData.ModifiedDate.ToString());
+            sb.Append(videoData.ModifiedTimestamp.ToString());
+
+            var dataBytes = Encoding.UTF8.GetBytes(sb.ToString());
+
+            var uniqueID = BitConverter.ToString(SHA1.HashData(dataBytes)).Replace("-", "");
+            return uniqueID;
         }
     }
 }
