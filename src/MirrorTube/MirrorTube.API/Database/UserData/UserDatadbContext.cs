@@ -16,6 +16,7 @@ namespace MirrorTube.API.Database.UserData
         }
 
         public DbSet<VideoDataDto> VideoDataDto { get; set; }
+        public DbSet<FormatDataDto> FormatDataDto { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

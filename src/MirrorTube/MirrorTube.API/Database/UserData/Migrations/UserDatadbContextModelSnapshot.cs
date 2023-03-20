@@ -458,39 +458,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
                     b.ToTable("CommentData");
                 });
 
-            modelBuilder.Entity("YoutubeDLSharp.Metadata.ThumbnailData", b =>
-                {
-                    b.Property<string>("ID")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("Filesize")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("Height")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("Preference")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Resolution")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("VideoDataDtoPK_ID")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("Width")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("VideoDataDtoPK_ID");
-
-                    b.ToTable("ThumbnailData");
-                });
-
             modelBuilder.Entity("MirrorTube.API.Database.UserData.ModelsDto.YtDlp.FormatDataDto", b =>
                 {
                     b.HasOne("MirrorTube.API.Database.UserData.ModelsDto.YtDlp.VideoDataDto", null)
@@ -516,13 +483,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         .HasForeignKey("VideoDataDtoPK_ID");
                 });
 
-            modelBuilder.Entity("YoutubeDLSharp.Metadata.ThumbnailData", b =>
-                {
-                    b.HasOne("MirrorTube.API.Database.UserData.ModelsDto.YtDlp.VideoDataDto", null)
-                        .WithMany("Thumbnails")
-                        .HasForeignKey("VideoDataDtoPK_ID");
-                });
-
             modelBuilder.Entity("MirrorTube.API.Database.UserData.ModelsDto.YtDlp.VideoDataDto", b =>
                 {
                     b.Navigation("AutomaticCaptions");
@@ -532,8 +492,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
                     b.Navigation("Formats");
 
                     b.Navigation("Subtitles");
-
-                    b.Navigation("Thumbnails");
                 });
 #pragma warning restore 612, 618
         }

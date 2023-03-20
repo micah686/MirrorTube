@@ -205,29 +205,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         principalColumn: "PK_ID");
                 });
 
-            migrationBuilder.CreateTable(
-                name: "ThumbnailData",
-                columns: table => new
-                {
-                    ID = table.Column<string>(type: "TEXT", nullable: false),
-                    Url = table.Column<string>(type: "TEXT", nullable: true),
-                    Preference = table.Column<int>(type: "INTEGER", nullable: true),
-                    Width = table.Column<int>(type: "INTEGER", nullable: true),
-                    Height = table.Column<int>(type: "INTEGER", nullable: true),
-                    Resolution = table.Column<string>(type: "TEXT", nullable: true),
-                    Filesize = table.Column<int>(type: "INTEGER", nullable: true),
-                    VideoDataDtoPK_ID = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ThumbnailData", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_ThumbnailData_VideoDataDto_VideoDataDtoPK_ID",
-                        column: x => x.VideoDataDtoPK_ID,
-                        principalTable: "VideoDataDto",
-                        principalColumn: "PK_ID");
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_CommentData_VideoDataDtoPK_ID",
                 table: "CommentData",
@@ -247,11 +224,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
                 name: "IX_SubtitleDataDto_subtitles",
                 table: "SubtitleDataDto",
                 column: "subtitles");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ThumbnailData_VideoDataDtoPK_ID",
-                table: "ThumbnailData",
-                column: "VideoDataDtoPK_ID");
         }
 
         /// <inheritdoc />
@@ -265,9 +237,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
 
             migrationBuilder.DropTable(
                 name: "SubtitleDataDto");
-
-            migrationBuilder.DropTable(
-                name: "ThumbnailData");
 
             migrationBuilder.DropTable(
                 name: "VideoDataDto");

@@ -7,6 +7,8 @@ using AutoMapper;
 using System.Net;
 using System.Text;
 using System.Security.Cryptography;
+using NetBox.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace MirrorTube.API.Services
 {
@@ -28,23 +30,42 @@ namespace MirrorTube.API.Services
             if (json == null) return;
 
             VideoDataDto videoData = _mapper.Map<VideoDataDto>(json);
-            FormatDataDto[] formatList = _mapper.Map<FormatDataDto[]>(json.Formats);
+            FormatDataDto[] formatData = _mapper.Map<FormatDataDto[]>(json.Formats);
+            var formatList = GetFormatData(videoData.FormatID, formatData);
+
 
             var captions = await GetSubtitleData(json.Subtitles);
             var subs = await GetSubtitleData(json.Subtitles);
-            
-            videoData.Formats = formatList;
-            videoData.Subtitles = subs;
-            videoData.AutomaticCaptions = captions;
 
-            var uniqueID = GenerateUniqueID(videoData);
+
+
+            //videoData.Subtitles = subs;
+            //videoData.AutomaticCaptions = captions;
+
+            //var uniqueID = GenerateUniqueID(videoData);
 
             try
             {
                 var dbRecord = _dbContext.VideoDataDto.FirstOrDefault(x => x.ID == json.ID);
                 dbRecord ??= new VideoDataDto();
 
+                _dbContext.Entry(dbRecord).Collection(c => c.Formats).Load();
+                _dbContext.Entry(dbRecord).Collection(c => c.Subtitles).Load();
+                _dbContext.Entry(dbRecord).Collection(c => c.AutomaticCaptions).Load();
+
+
+                var newFormats = dbRecord.Formats;
+                newFormats.AddRange(formatList);
+
+                dbRecord.Formats = new List<FormatDataDto>();
+                dbRecord.Formats.AddRange(formatList);
+
+
+                videoData.PK_ID = dbRecord.PK_ID;
                 _dbContext.Entry(dbRecord).CurrentValues.SetValues(videoData);
+                //_dbContext.Entry(dbRecord.Formats).CurrentValues.SetValues(formatList);
+
+                //dbRecord.Formats.AddRange(formatList);
                 _dbContext.Update(dbRecord);
                 await _dbContext.SaveChangesAsync();
             }
@@ -57,6 +78,7 @@ namespace MirrorTube.API.Services
             
 
             var d2 = _dbContext.VideoDataDto.FirstOrDefault();
+            var d3 = d2?.Formats;
         }
 
         private async Task<List<SubtitleDataDto>> GetSubtitleData(Dictionary<string, SubtitleData[]> input)
@@ -83,6 +105,29 @@ namespace MirrorTube.API.Services
                 }
             }
             return output;
+        }
+
+        private FormatDataDto[] GetFormatData(string? formatString, IEnumerable<FormatDataDto> allFormats)
+        {
+            if(formatString == null) return Array.Empty<FormatDataDto>();
+            var splitIds = formatString.Split("+");
+            if(splitIds.Length > 0)
+            {
+                var formatList = new List<FormatDataDto>();
+                foreach (var id in splitIds)
+                {
+                    var format = allFormats.Where(x => x.FormatId == id).FirstOrDefault();
+                    if (format != null)
+                    {
+                        formatList.Add(format);
+                    }                    
+                }
+                return formatList.ToArray();
+            }
+            else
+            {
+                return Array.Empty<FormatDataDto>();
+            }
         }
 
         private string GenerateUniqueID(VideoDataDto videoData)

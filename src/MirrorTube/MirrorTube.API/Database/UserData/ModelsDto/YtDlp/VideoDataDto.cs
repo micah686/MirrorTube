@@ -2,14 +2,14 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using YoutubeDLSharp.Converters;
 using YoutubeDLSharp.Metadata;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
 {
     public class VideoDataDto
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Required]
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity), Key()]
         public string PK_ID { get; set; }
         
         public MetadataType ResultType { get; set; }
@@ -24,7 +24,7 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
 
         public string? Title { get; set; }
 
-        public ICollection<FormatDataDto>? Formats { get; set; }
+        public virtual List<FormatDataDto> Formats { get; set; } = new List<FormatDataDto>();
 
         public string? Url { get; set; }
 
@@ -42,7 +42,7 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
 
         public string? DisplayID { get; set; }
 
-        public ICollection<ThumbnailData>? Thumbnails { get; set; }
+        //public ICollection<ThumbnailData>? Thumbnails { get; set; }
 
         public string? Thumbnail { get; set; }
 
@@ -81,10 +81,10 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
         public string? Location { get; set; }
 
         [ForeignKey("subtitles")]
-        public ICollection<SubtitleDataDto>? Subtitles { get; set; } //modified from dictionary
+        public List<SubtitleDataDto> Subtitles { get; set; } = new List<SubtitleDataDto>(); //modified from dictionary
 
         [ForeignKey("automatic_captions")]
-        public ICollection<SubtitleDataDto>? AutomaticCaptions { get; set; } //modified from dictionary
+        public List<SubtitleDataDto> AutomaticCaptions { get; set; } = new List<SubtitleDataDto>(); //modified from dictionary
 
         public float? Duration { get; set; }
 
