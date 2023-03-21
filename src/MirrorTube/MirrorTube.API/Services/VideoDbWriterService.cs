@@ -47,11 +47,16 @@ namespace MirrorTube.API.Services
             try
             {
                 var dbRecord = _dbContext.VideoDataDto.FirstOrDefault(x => x.ID == json.ID);
+                if (dbRecord != null)
+                {
+                    _dbContext.Entry(dbRecord).Collection(c => c.Formats).Load();
+                    _dbContext.Entry(dbRecord).Collection(c => c.Subtitles).Load();
+                    _dbContext.Entry(dbRecord).Collection(c => c.AutomaticCaptions).Load();
+                }
                 dbRecord ??= new VideoDataDto();
 
-                _dbContext.Entry(dbRecord).Collection(c => c.Formats).Load();
-                _dbContext.Entry(dbRecord).Collection(c => c.Subtitles).Load();
-                _dbContext.Entry(dbRecord).Collection(c => c.AutomaticCaptions).Load();
+                
+                
 
 
                 var newFormats = dbRecord.Formats;
