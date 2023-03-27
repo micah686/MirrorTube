@@ -11,7 +11,7 @@ using MirrorTube.API.Database.UserData;
 namespace MirrorTube.API.Database.UserData.Migrations
 {
     [DbContext(typeof(UserDatadbContext))]
-    [Migration("20230316050813_Initial")]
+    [Migration("20230327005155_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -22,12 +22,8 @@ namespace MirrorTube.API.Database.UserData.Migrations
 
             modelBuilder.Entity("MirrorTube.API.Database.UserData.ModelsDto.YtDlp.FormatDataDto", b =>
                 {
-                    b.Property<string>("PK_ID")
-                        .ValueGeneratedOnAdd()
+                    b.Property<string>("PK_VideoFormatId")
                         .HasColumnType("TEXT");
-
-                    b.Property<long?>("ApproximateFileSize")
-                        .HasColumnType("INTEGER");
 
                     b.Property<double?>("AudioBitrate")
                         .HasColumnType("REAL");
@@ -43,9 +39,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
 
                     b.Property<double?>("Bitrate")
                         .HasColumnType("REAL");
-
-                    b.Property<string>("ContainerFormat")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("DynamicRange")
                         .HasColumnType("TEXT");
@@ -65,9 +58,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
                     b.Property<string>("FormatNote")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FragmentBaseUrl")
-                        .HasColumnType("TEXT");
-
                     b.Property<float?>("FrameRate")
                         .HasColumnType("REAL");
 
@@ -77,43 +67,7 @@ namespace MirrorTube.API.Database.UserData.Migrations
                     b.Property<int?>("Height")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool?>("IsFromStart")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("LanguagePreference")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ManifestUrl")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool?>("NoResume")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("PlayerUrl")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("Preference")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Protocol")
-                        .HasColumnType("TEXT");
-
-                    b.Property<double?>("Quality")
-                        .HasColumnType("REAL");
-
                     b.Property<string>("Resolution")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("SourcePreference")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<float?>("StretchedRatio")
-                        .HasColumnType("REAL");
-
-                    b.Property<string>("Url")
                         .HasColumnType("TEXT");
 
                     b.Property<double?>("VideoBitrate")
@@ -131,11 +85,45 @@ namespace MirrorTube.API.Database.UserData.Migrations
                     b.Property<int?>("Width")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("PK_ID");
+                    b.HasKey("PK_VideoFormatId");
 
                     b.HasIndex("VideoDataDtoPK_ID");
 
                     b.ToTable("FormatDataDto");
+                });
+
+            modelBuilder.Entity("MirrorTube.API.Database.UserData.ModelsDto.YtDlp.SeriesDataDto", b =>
+                {
+                    b.Property<string>("PK_VideoID")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Episode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EpisodeId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("EpisodeNumber")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Season")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SeasonId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("SeasonNumber")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Series")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SeriesId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("PK_VideoID");
+
+                    b.ToTable("SeriesDataDto");
                 });
 
             modelBuilder.Entity("MirrorTube.API.Database.UserData.ModelsDto.YtDlp.SubtitleDataDto", b =>
@@ -168,14 +156,10 @@ namespace MirrorTube.API.Database.UserData.Migrations
                     b.ToTable("SubtitleDataDto");
                 });
 
-            modelBuilder.Entity("MirrorTube.API.Database.UserData.ModelsDto.YtDlp.VideoDataDto", b =>
+            modelBuilder.Entity("MirrorTube.API.Database.UserData.ModelsDto.YtDlp.TrackDataDto", b =>
                 {
-                    b.Property<string>("PK_ID")
-                        .ValueGeneratedOnAdd()
+                    b.Property<string>("PK_VideoID")
                         .HasColumnType("TEXT");
-
-                    b.Property<int?>("AgeLimit")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Album")
                         .HasColumnType("TEXT");
@@ -186,10 +170,45 @@ namespace MirrorTube.API.Database.UserData.Migrations
                     b.Property<string>("AlbumType")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AltTitle")
+                    b.Property<string>("Artist")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Artist")
+                    b.Property<string>("Composer")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("DiscNumber")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Genre")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ReleaseYear")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Track")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TrackId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("TrackNumber")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("PK_VideoID");
+
+                    b.ToTable("TrackDataDto");
+                });
+
+            modelBuilder.Entity("MirrorTube.API.Database.UserData.ModelsDto.YtDlp.VideoDataDto", b =>
+                {
+                    b.Property<string>("PK_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("AgeLimit")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AltTitle")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("Availability")
@@ -231,9 +250,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
                     b.Property<long?>("CommentCount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Composer")
-                        .HasColumnType("TEXT");
-
                     b.Property<long?>("ConcurrentViewCount")
                         .HasColumnType("INTEGER");
 
@@ -242,12 +258,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("Direct")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("DiscNumber")
-                        .HasColumnType("INTEGER");
 
                     b.Property<long?>("DislikeCount")
                         .HasColumnType("INTEGER");
@@ -261,15 +271,6 @@ namespace MirrorTube.API.Database.UserData.Migrations
                     b.Property<float?>("EndTime")
                         .HasColumnType("REAL");
 
-                    b.Property<string>("Episode")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("EpisodeId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("EpisodeNumber")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Extension")
                         .HasColumnType("TEXT");
 
@@ -279,28 +280,13 @@ namespace MirrorTube.API.Database.UserData.Migrations
                     b.Property<string>("ExtractorKey")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Format")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("FormatID")
                         .HasColumnType("TEXT");
-
-                    b.Property<string>("Genre")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ID")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool?>("IsLive")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("License")
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("LikeCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("LiveStatus")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Location")
@@ -312,34 +298,7 @@ namespace MirrorTube.API.Database.UserData.Migrations
                     b.Property<DateTime?>("ModifiedTimestamp")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PlayableInEmbed")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PlayerUrl")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("ReleaseDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("ReleaseTimestamp")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ReleaseYear")
-                        .HasColumnType("TEXT");
-
                     b.Property<long?>("RepostCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ResultType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Season")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SeasonId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("SeasonNumber")
                         .HasColumnType("INTEGER");
 
                     b.Property<long?>("SectionEnd")
@@ -348,10 +307,7 @@ namespace MirrorTube.API.Database.UserData.Migrations
                     b.Property<long?>("SectionStart")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Series")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SeriesId")
+                    b.Property<string>("SeriesDataPK_VideoID")
                         .HasColumnType("TEXT");
 
                     b.Property<float?>("StartTime")
@@ -366,23 +322,14 @@ namespace MirrorTube.API.Database.UserData.Migrations
                     b.Property<string>("Tags")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Thumbnail")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime?>("Timestamp")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Track")
+                    b.Property<string>("TrackDataPK_VideoID")
                         .HasColumnType("TEXT");
-
-                    b.Property<string>("TrackId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("TrackNumber")
-                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("UploadDate")
                         .HasColumnType("TEXT");
@@ -399,6 +346,9 @@ namespace MirrorTube.API.Database.UserData.Migrations
                     b.Property<string>("Url")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("VideoID")
+                        .HasColumnType("TEXT");
+
                     b.Property<long?>("ViewCount")
                         .HasColumnType("INTEGER");
 
@@ -409,6 +359,10 @@ namespace MirrorTube.API.Database.UserData.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("PK_ID");
+
+                    b.HasIndex("SeriesDataPK_VideoID");
+
+                    b.HasIndex("TrackDataPK_VideoID");
 
                     b.ToTable("VideoDataDto");
                 });
@@ -477,6 +431,21 @@ namespace MirrorTube.API.Database.UserData.Migrations
                     b.HasOne("MirrorTube.API.Database.UserData.ModelsDto.YtDlp.VideoDataDto", null)
                         .WithMany("Subtitles")
                         .HasForeignKey("subtitles");
+                });
+
+            modelBuilder.Entity("MirrorTube.API.Database.UserData.ModelsDto.YtDlp.VideoDataDto", b =>
+                {
+                    b.HasOne("MirrorTube.API.Database.UserData.ModelsDto.YtDlp.SeriesDataDto", "SeriesData")
+                        .WithMany()
+                        .HasForeignKey("SeriesDataPK_VideoID");
+
+                    b.HasOne("MirrorTube.API.Database.UserData.ModelsDto.YtDlp.TrackDataDto", "TrackData")
+                        .WithMany()
+                        .HasForeignKey("TrackDataPK_VideoID");
+
+                    b.Navigation("SeriesData");
+
+                    b.Navigation("TrackData");
                 });
 
             modelBuilder.Entity("YoutubeDLSharp.Metadata.CommentData", b =>

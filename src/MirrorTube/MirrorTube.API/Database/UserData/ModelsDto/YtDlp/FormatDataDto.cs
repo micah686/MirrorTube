@@ -6,16 +6,13 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
     public class FormatDataDto
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Required]
-        public string PK_ID { get; set; }
+        public string PK_VideoFormatId { get; set; } = string.Empty;
 
-
-        public string? VideoId { get; set; }
-        
+        public string? FormatId { get; set; }
+        public string? VideoId { get; set; }        
         public string? Extension { get; set; }
         public string? Format { get; set; }
-        public string? FormatId { get; set; }
+        
         public string? FormatNote { get; set; }
         public int? Width { get; set; }
         public int? Height { get; set; }
@@ -35,11 +32,5 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
         public string? AudioCodec { get; set; }
         public double? AudioSamplingRate { get; set; }
         public int? AudioChannels { get; set; }
-
-        
-       
-        
-        
-
     }
 }

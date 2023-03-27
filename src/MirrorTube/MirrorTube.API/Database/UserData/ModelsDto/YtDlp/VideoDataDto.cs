@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using YoutubeDLSharp.Converters;
 using YoutubeDLSharp.Metadata;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using AutoMapper.Configuration.Annotations;
 
 namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
 {
@@ -11,16 +12,13 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity), Key()]
         public string PK_ID { get; set; }
-        
-        public MetadataType ResultType { get; set; }
+
 
         public string? Extractor { get; set; }
 
         public string? ExtractorKey { get; set; }
 
-        //public VideoData[] Entries { get; set; }
-
-        public string? ID { get; set; }
+        public string? VideoID { get; set; }
 
         public string? Title { get; set; }
 
@@ -28,23 +26,15 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
 
         public string? Url { get; set; }
 
-        public string? Extension { get; set; }
-
-        public string? Format { get; set; }
+        public string? Extension { get; set; }        
 
         public string? FormatID { get; set; }
 
-        public string? PlayerUrl { get; set; }
 
-        public bool Direct { get; set; }
 
         public string? AltTitle { get; set; }
 
         public string? DisplayID { get; set; }
-
-        //public ICollection<ThumbnailData>? Thumbnails { get; set; }
-
-        public string? Thumbnail { get; set; }
 
         public string? Description { get; set; }
 
@@ -53,10 +43,6 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
         public string? License { get; set; }
 
         public string? Creator { get; set; }
-
-        public DateTime? ReleaseTimestamp { get; set; }
-
-        public DateTime? ReleaseDate { get; set; }
 
         public DateTime? Timestamp { get; set; }
 
@@ -81,11 +67,10 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
         public string? Location { get; set; }
 
         [ForeignKey("subtitles")]
-        public List<SubtitleDataDto> Subtitles { get; set; } = new List<SubtitleDataDto>(); //modified from dictionary
+        public List<SubtitleDataDto> Subtitles { get; set; } = new List<SubtitleDataDto>(); 
 
         [ForeignKey("automatic_captions")]
-        public List<SubtitleDataDto> AutomaticCaptions { get; set; } = new List<SubtitleDataDto>(); //modified from dictionary
-
+        public List<SubtitleDataDto> AutomaticCaptions { get; set; } = new List<SubtitleDataDto>(); 
         public float? Duration { get; set; }
 
         public long? ViewCount { get; set; }
@@ -114,17 +99,12 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
 
         public string[]? Cast { get; set; }
 
-        public bool? IsLive { get; set; }
-
         public bool? WasLive { get; set; }
-
-        public LiveStatus LiveStatus { get; set; }
 
         public float? StartTime { get; set; }
 
         public float? EndTime { get; set; }
 
-        public string? PlayableInEmbed { get; set; }
 
         public Availability? Availability { get; set; }
 
@@ -136,43 +116,14 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
 
         public string? ChapterId { get; set; }
 
-        public string? Series { get; set; }
+        public SeriesDataDto? SeriesData { get; set; }
 
-        public string? SeriesId { get; set; }
+        public TrackDataDto? TrackData { get; set; }
 
-        public string? Season { get; set; }
 
-        public int? SeasonNumber { get; set; }
 
-        public string? SeasonId { get; set; }
 
-        public string? Episode { get; set; }
-
-        public int? EpisodeNumber { get; set; }
-
-        public string? EpisodeId { get; set; }
-
-        public string? Track { get; set; }
-
-        public int? TrackNumber { get; set; }
-
-        public string? TrackId { get; set; }
-
-        public string? Artist { get; set; }
-
-        public string? Genre { get; set; }
-
-        public string? Album { get; set; }
-
-        public string? AlbumType { get; set; }
-
-        public string? AlbumArtist { get; set; }
-
-        public int? DiscNumber { get; set; }
-
-        public string? ReleaseYear { get; set; }
-
-        public string? Composer { get; set; }
+        
 
         public long? SectionStart { get; set; }
 

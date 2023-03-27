@@ -12,30 +12,64 @@ namespace MirrorTube.API.Database.UserData.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "SeriesDataDto",
+                columns: table => new
+                {
+                    PK_VideoID = table.Column<string>(type: "TEXT", nullable: false),
+                    Series = table.Column<string>(type: "TEXT", nullable: true),
+                    SeriesId = table.Column<string>(type: "TEXT", nullable: true),
+                    Season = table.Column<string>(type: "TEXT", nullable: true),
+                    SeasonNumber = table.Column<int>(type: "INTEGER", nullable: true),
+                    SeasonId = table.Column<string>(type: "TEXT", nullable: true),
+                    Episode = table.Column<string>(type: "TEXT", nullable: true),
+                    EpisodeNumber = table.Column<int>(type: "INTEGER", nullable: true),
+                    EpisodeId = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SeriesDataDto", x => x.PK_VideoID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TrackDataDto",
+                columns: table => new
+                {
+                    PK_VideoID = table.Column<string>(type: "TEXT", nullable: false),
+                    Track = table.Column<string>(type: "TEXT", nullable: true),
+                    TrackNumber = table.Column<int>(type: "INTEGER", nullable: true),
+                    TrackId = table.Column<string>(type: "TEXT", nullable: true),
+                    Artist = table.Column<string>(type: "TEXT", nullable: true),
+                    Genre = table.Column<string>(type: "TEXT", nullable: true),
+                    Album = table.Column<string>(type: "TEXT", nullable: true),
+                    AlbumType = table.Column<string>(type: "TEXT", nullable: true),
+                    AlbumArtist = table.Column<string>(type: "TEXT", nullable: true),
+                    DiscNumber = table.Column<int>(type: "INTEGER", nullable: true),
+                    ReleaseYear = table.Column<string>(type: "TEXT", nullable: true),
+                    Composer = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TrackDataDto", x => x.PK_VideoID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "VideoDataDto",
                 columns: table => new
                 {
                     PK_ID = table.Column<string>(type: "TEXT", nullable: false),
-                    ResultType = table.Column<int>(type: "INTEGER", nullable: false),
                     Extractor = table.Column<string>(type: "TEXT", nullable: true),
                     ExtractorKey = table.Column<string>(type: "TEXT", nullable: true),
-                    ID = table.Column<string>(type: "TEXT", nullable: true),
+                    VideoID = table.Column<string>(type: "TEXT", nullable: true),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Url = table.Column<string>(type: "TEXT", nullable: true),
                     Extension = table.Column<string>(type: "TEXT", nullable: true),
-                    Format = table.Column<string>(type: "TEXT", nullable: true),
                     FormatID = table.Column<string>(type: "TEXT", nullable: true),
-                    PlayerUrl = table.Column<string>(type: "TEXT", nullable: true),
-                    Direct = table.Column<bool>(type: "INTEGER", nullable: false),
                     AltTitle = table.Column<string>(type: "TEXT", nullable: true),
                     DisplayID = table.Column<string>(type: "TEXT", nullable: true),
-                    Thumbnail = table.Column<string>(type: "TEXT", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     Uploader = table.Column<string>(type: "TEXT", nullable: true),
                     License = table.Column<string>(type: "TEXT", nullable: true),
                     Creator = table.Column<string>(type: "TEXT", nullable: true),
-                    ReleaseTimestamp = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    ReleaseDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     Timestamp = table.Column<DateTime>(type: "TEXT", nullable: true),
                     UploadDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     ModifiedTimestamp = table.Column<DateTime>(type: "TEXT", nullable: true),
@@ -60,36 +94,16 @@ namespace MirrorTube.API.Database.UserData.Migrations
                     Categories = table.Column<string>(type: "TEXT", nullable: true),
                     Tags = table.Column<string>(type: "TEXT", nullable: true),
                     Cast = table.Column<string>(type: "TEXT", nullable: true),
-                    IsLive = table.Column<bool>(type: "INTEGER", nullable: true),
                     WasLive = table.Column<bool>(type: "INTEGER", nullable: true),
-                    LiveStatus = table.Column<int>(type: "INTEGER", nullable: false),
                     StartTime = table.Column<float>(type: "REAL", nullable: true),
                     EndTime = table.Column<float>(type: "REAL", nullable: true),
-                    PlayableInEmbed = table.Column<string>(type: "TEXT", nullable: true),
                     Availability = table.Column<int>(type: "INTEGER", nullable: true),
                     Chapters = table.Column<string>(type: "TEXT", nullable: true),
                     Chapter = table.Column<string>(type: "TEXT", nullable: true),
                     ChapterNumber = table.Column<int>(type: "INTEGER", nullable: true),
                     ChapterId = table.Column<string>(type: "TEXT", nullable: true),
-                    Series = table.Column<string>(type: "TEXT", nullable: true),
-                    SeriesId = table.Column<string>(type: "TEXT", nullable: true),
-                    Season = table.Column<string>(type: "TEXT", nullable: true),
-                    SeasonNumber = table.Column<int>(type: "INTEGER", nullable: true),
-                    SeasonId = table.Column<string>(type: "TEXT", nullable: true),
-                    Episode = table.Column<string>(type: "TEXT", nullable: true),
-                    EpisodeNumber = table.Column<int>(type: "INTEGER", nullable: true),
-                    EpisodeId = table.Column<string>(type: "TEXT", nullable: true),
-                    Track = table.Column<string>(type: "TEXT", nullable: true),
-                    TrackNumber = table.Column<int>(type: "INTEGER", nullable: true),
-                    TrackId = table.Column<string>(type: "TEXT", nullable: true),
-                    Artist = table.Column<string>(type: "TEXT", nullable: true),
-                    Genre = table.Column<string>(type: "TEXT", nullable: true),
-                    Album = table.Column<string>(type: "TEXT", nullable: true),
-                    AlbumType = table.Column<string>(type: "TEXT", nullable: true),
-                    AlbumArtist = table.Column<string>(type: "TEXT", nullable: true),
-                    DiscNumber = table.Column<int>(type: "INTEGER", nullable: true),
-                    ReleaseYear = table.Column<string>(type: "TEXT", nullable: true),
-                    Composer = table.Column<string>(type: "TEXT", nullable: true),
+                    SeriesDataPK_VideoID = table.Column<string>(type: "TEXT", nullable: true),
+                    TrackDataPK_VideoID = table.Column<string>(type: "TEXT", nullable: true),
                     SectionStart = table.Column<long>(type: "INTEGER", nullable: true),
                     SectionEnd = table.Column<long>(type: "INTEGER", nullable: true),
                     StoryboardFragmentRows = table.Column<long>(type: "INTEGER", nullable: true),
@@ -98,6 +112,16 @@ namespace MirrorTube.API.Database.UserData.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_VideoDataDto", x => x.PK_ID);
+                    table.ForeignKey(
+                        name: "FK_VideoDataDto_SeriesDataDto_SeriesDataPK_VideoID",
+                        column: x => x.SeriesDataPK_VideoID,
+                        principalTable: "SeriesDataDto",
+                        principalColumn: "PK_VideoID");
+                    table.ForeignKey(
+                        name: "FK_VideoDataDto_TrackDataDto_TrackDataPK_VideoID",
+                        column: x => x.TrackDataPK_VideoID,
+                        principalTable: "TrackDataDto",
+                        principalColumn: "PK_VideoID");
                 });
 
             migrationBuilder.CreateTable(
@@ -132,46 +156,31 @@ namespace MirrorTube.API.Database.UserData.Migrations
                 name: "FormatDataDto",
                 columns: table => new
                 {
-                    PK_ID = table.Column<string>(type: "TEXT", nullable: false),
+                    PK_VideoFormatId = table.Column<string>(type: "TEXT", nullable: false),
+                    FormatId = table.Column<string>(type: "TEXT", nullable: true),
                     VideoId = table.Column<string>(type: "TEXT", nullable: true),
-                    Url = table.Column<string>(type: "TEXT", nullable: true),
-                    ManifestUrl = table.Column<string>(type: "TEXT", nullable: true),
                     Extension = table.Column<string>(type: "TEXT", nullable: true),
                     Format = table.Column<string>(type: "TEXT", nullable: true),
-                    FormatId = table.Column<string>(type: "TEXT", nullable: true),
                     FormatNote = table.Column<string>(type: "TEXT", nullable: true),
                     Width = table.Column<int>(type: "INTEGER", nullable: true),
                     Height = table.Column<int>(type: "INTEGER", nullable: true),
-                    Resolution = table.Column<string>(type: "TEXT", nullable: true),
-                    DynamicRange = table.Column<string>(type: "TEXT", nullable: true),
                     Bitrate = table.Column<double>(type: "REAL", nullable: true),
+                    FileSize = table.Column<long>(type: "INTEGER", nullable: true),
+                    HasDRM = table.Column<bool>(type: "INTEGER", nullable: true),
+                    DynamicRange = table.Column<string>(type: "TEXT", nullable: true),
+                    VideoBitrate = table.Column<double>(type: "REAL", nullable: true),
+                    FrameRate = table.Column<float>(type: "REAL", nullable: true),
+                    VideoCodec = table.Column<string>(type: "TEXT", nullable: true),
+                    Resolution = table.Column<string>(type: "TEXT", nullable: true),
                     AudioBitrate = table.Column<double>(type: "REAL", nullable: true),
                     AudioCodec = table.Column<string>(type: "TEXT", nullable: true),
                     AudioSamplingRate = table.Column<double>(type: "REAL", nullable: true),
                     AudioChannels = table.Column<int>(type: "INTEGER", nullable: true),
-                    VideoBitrate = table.Column<double>(type: "REAL", nullable: true),
-                    FrameRate = table.Column<float>(type: "REAL", nullable: true),
-                    VideoCodec = table.Column<string>(type: "TEXT", nullable: true),
-                    ContainerFormat = table.Column<string>(type: "TEXT", nullable: true),
-                    FileSize = table.Column<long>(type: "INTEGER", nullable: true),
-                    ApproximateFileSize = table.Column<long>(type: "INTEGER", nullable: true),
-                    PlayerUrl = table.Column<string>(type: "TEXT", nullable: true),
-                    Protocol = table.Column<string>(type: "TEXT", nullable: true),
-                    FragmentBaseUrl = table.Column<string>(type: "TEXT", nullable: true),
-                    IsFromStart = table.Column<bool>(type: "INTEGER", nullable: true),
-                    Preference = table.Column<int>(type: "INTEGER", nullable: true),
-                    Language = table.Column<string>(type: "TEXT", nullable: true),
-                    LanguagePreference = table.Column<int>(type: "INTEGER", nullable: true),
-                    Quality = table.Column<double>(type: "REAL", nullable: true),
-                    SourcePreference = table.Column<int>(type: "INTEGER", nullable: true),
-                    StretchedRatio = table.Column<float>(type: "REAL", nullable: true),
-                    NoResume = table.Column<bool>(type: "INTEGER", nullable: true),
-                    HasDRM = table.Column<bool>(type: "INTEGER", nullable: true),
                     VideoDataDtoPK_ID = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FormatDataDto", x => x.PK_ID);
+                    table.PrimaryKey("PK_FormatDataDto", x => x.PK_VideoFormatId);
                     table.ForeignKey(
                         name: "FK_FormatDataDto_VideoDataDto_VideoDataDtoPK_ID",
                         column: x => x.VideoDataDtoPK_ID,
@@ -224,6 +233,16 @@ namespace MirrorTube.API.Database.UserData.Migrations
                 name: "IX_SubtitleDataDto_subtitles",
                 table: "SubtitleDataDto",
                 column: "subtitles");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VideoDataDto_SeriesDataPK_VideoID",
+                table: "VideoDataDto",
+                column: "SeriesDataPK_VideoID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VideoDataDto_TrackDataPK_VideoID",
+                table: "VideoDataDto",
+                column: "TrackDataPK_VideoID");
         }
 
         /// <inheritdoc />
@@ -240,6 +259,12 @@ namespace MirrorTube.API.Database.UserData.Migrations
 
             migrationBuilder.DropTable(
                 name: "VideoDataDto");
+
+            migrationBuilder.DropTable(
+                name: "SeriesDataDto");
+
+            migrationBuilder.DropTable(
+                name: "TrackDataDto");
         }
     }
 }

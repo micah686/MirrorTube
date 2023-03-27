@@ -31,7 +31,9 @@ namespace MirrorTube.API.Services
 
             VideoDataDto videoData = _mapper.Map<VideoDataDto>(json);
             FormatDataDto[] formatData = _mapper.Map<FormatDataDto[]>(json.Formats);
-            var formatList = GetFormatData(videoData.FormatID, formatData);
+            var formatList = GetFormatData(videoData.FormatID, formatData, json.ID);
+            videoData.SeriesData = GetSeriesData(json);
+            videoData.TrackData = GetTrackData(json);
 
 
             var captions = await GetSubtitleData(json.Subtitles);
@@ -46,7 +48,7 @@ namespace MirrorTube.API.Services
 
             try
             {
-                var dbRecord = _dbContext.VideoDataDto.FirstOrDefault(x => x.ID == json.ID);
+                var dbRecord = _dbContext.VideoDataDto.FirstOrDefault(x => x.VideoID == json.ID);
                 if (dbRecord != null)
                 {
                     _dbContext.Entry(dbRecord).Collection(c => c.Formats).Load();
@@ -54,23 +56,9 @@ namespace MirrorTube.API.Services
                     _dbContext.Entry(dbRecord).Collection(c => c.AutomaticCaptions).Load();
                 }
                 dbRecord ??= new VideoDataDto();
-
-                
-                
-
-
-                var newFormats = dbRecord.Formats;
-                newFormats.AddRange(formatList);
-
-                dbRecord.Formats = new List<FormatDataDto>();
                 dbRecord.Formats.AddRange(formatList);
 
 
-                videoData.PK_ID = dbRecord.PK_ID;
-                _dbContext.Entry(dbRecord).CurrentValues.SetValues(videoData);
-                //_dbContext.Entry(dbRecord.Formats).CurrentValues.SetValues(formatList);
-
-                //dbRecord.Formats.AddRange(formatList);
                 _dbContext.Update(dbRecord);
                 await _dbContext.SaveChangesAsync();
             }
@@ -79,11 +67,6 @@ namespace MirrorTube.API.Services
                 Console.WriteLine(ex);
                 throw;
             }
-
-            
-
-            var d2 = _dbContext.VideoDataDto.FirstOrDefault();
-            var d3 = d2?.Formats;
         }
 
         private async Task<List<SubtitleDataDto>> GetSubtitleData(Dictionary<string, SubtitleData[]> input)
@@ -112,7 +95,7 @@ namespace MirrorTube.API.Services
             return output;
         }
 
-        private FormatDataDto[] GetFormatData(string? formatString, IEnumerable<FormatDataDto> allFormats)
+        private FormatDataDto[] GetFormatData(string? formatString, IEnumerable<FormatDataDto> allFormats, string videoID)
         {
             if(formatString == null) return Array.Empty<FormatDataDto>();
             var splitIds = formatString.Split("+");
@@ -124,6 +107,8 @@ namespace MirrorTube.API.Services
                     var format = allFormats.Where(x => x.FormatId == id).FirstOrDefault();
                     if (format != null)
                     {
+                        format.VideoId = videoID;
+                        format.PK_VideoFormatId = $"{videoID}{format.FormatId}";
                         formatList.Add(format);
                     }                    
                 }
@@ -138,7 +123,7 @@ namespace MirrorTube.API.Services
         private string GenerateUniqueID(VideoDataDto videoData)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(videoData.ID);
+            sb.Append(videoData.VideoID);
             sb.Append(videoData.WebpageUrl);
             sb.Append(videoData.UploadDate.ToString());
             sb.Append(videoData.Timestamp.ToString());
@@ -149,6 +134,51 @@ namespace MirrorTube.API.Services
 
             var uniqueID = BitConverter.ToString(SHA1.HashData(dataBytes)).Replace("-", "");
             return uniqueID;
+        }
+
+        private SeriesDataDto? GetSeriesData(VideoData data)
+        {
+            var series = new SeriesDataDto();
+            series.PK_VideoID = data.ID;
+            series.Series = data.Series;
+            series.SeriesId = data.SeriesId;
+            series.Season = data.Season;
+            series.SeasonNumber = data.SeasonNumber;
+            series.SeasonId = data.SeasonId;
+            series.Episode = data.Episode;
+            series.EpisodeNumber = data.EpisodeNumber;
+            series.EpisodeId = data.EpisodeId;
+
+            var seriesData = $"{data.Series}{data.SeriesId}{data.Season}{data.SeasonNumber}{data.SeasonId}{data.Episode}{data.EpisodeNumber}{data.EpisodeId}";
+            if(!string.IsNullOrEmpty(seriesData))
+            {
+                return series;
+            }
+            else { return null; }
+        }
+
+        private TrackDataDto? GetTrackData(VideoData data)
+        {
+            var track = new TrackDataDto();
+            track.PK_VideoID = data.ID;
+            track.Track = data.Track;
+            track.TrackNumber = data.TrackNumber;
+            track.TrackId = data.TrackId;
+            track.Artist = data.Artist;
+            track.Genre = data.Genre;
+            track.Album = data.Album;
+            track.AlbumType = data.AlbumType;
+            track.AlbumArtist = data.AlbumArtist;
+            track.DiscNumber = data.DiscNumber;
+            track.ReleaseYear = data.ReleaseYear;
+            track.Composer = data.Composer;
+
+            var trackData = $"{data.Track}{data.TrackNumber}{data.TrackId}{data.Artist}{data.Genre}{data.Album}{data.AlbumType}{data.AlbumArtist}{data.DiscNumber}{data.ReleaseYear}{data.Composer}";
+            if (!string.IsNullOrEmpty(trackData))
+            {
+                return track;
+            }
+            else { return null; }
         }
     }
 }
