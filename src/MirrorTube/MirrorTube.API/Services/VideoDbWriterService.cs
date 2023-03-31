@@ -26,12 +26,14 @@ namespace MirrorTube.API.Services
 
         async Task IVideoDbWriterService.SaveInfoToDb(string filepath)
         {
+            var jData = File.ReadAllText(filepath);
             var json = JsonConvert.DeserializeObject<VideoData>(File.ReadAllText(filepath));
             if (json == null) return;
 
+            //Format_ID can be appended with a dash and a number, like so: 248+248-1
             VideoDataDto videoData = _mapper.Map<VideoDataDto>(json);
             FormatDataDto[] formatData = _mapper.Map<FormatDataDto[]>(json.Formats);
-            var formatList = GetFormatData(videoData.FormatID, formatData, json.ID);
+            var formatList = GetFormatData("videoData.FormatID", formatData, json.ID);
             videoData.SeriesData = GetSeriesData(json);
             videoData.TrackData = GetTrackData(json);
 
@@ -51,12 +53,12 @@ namespace MirrorTube.API.Services
                 var dbRecord = _dbContext.VideoDataDto.FirstOrDefault(x => x.VideoID == json.ID);
                 if (dbRecord != null)
                 {
-                    _dbContext.Entry(dbRecord).Collection(c => c.Formats).Load();
+                    //_dbContext.Entry(dbRecord).Collection(c => c.Formats).Load();
                     _dbContext.Entry(dbRecord).Collection(c => c.Subtitles).Load();
                     _dbContext.Entry(dbRecord).Collection(c => c.AutomaticCaptions).Load();
                 }
                 dbRecord ??= new VideoDataDto();
-                dbRecord.Formats.AddRange(formatList);
+                //dbRecord.Formats.AddRange(formatList);
 
 
                 _dbContext.Update(dbRecord);
@@ -102,16 +104,16 @@ namespace MirrorTube.API.Services
             if(splitIds.Length > 0)
             {
                 var formatList = new List<FormatDataDto>();
-                foreach (var id in splitIds)
-                {
-                    var format = allFormats.Where(x => x.FormatId == id).FirstOrDefault();
-                    if (format != null)
-                    {
-                        format.VideoId = videoID;
-                        format.PK_VideoFormatId = $"{videoID}{format.FormatId}";
-                        formatList.Add(format);
-                    }                    
-                }
+                //foreach (var id in splitIds)
+                //{
+                //    var format = allFormats.Where(x => x.FormatId == id).FirstOrDefault();
+                //    if (format != null)
+                //    {
+                //        format.VideoId = videoID;
+                //        format.PK_VideoFormatId = $"{videoID}{format.FormatId}";
+                //        formatList.Add(format);
+                //    }                    
+                //}
                 return formatList.ToArray();
             }
             else
@@ -180,5 +182,10 @@ namespace MirrorTube.API.Services
             }
             else { return null; }
         }
+    }
+
+    public class Foo : YoutubeDLSharp.Metadata.VideoData
+    {
+
     }
 }
