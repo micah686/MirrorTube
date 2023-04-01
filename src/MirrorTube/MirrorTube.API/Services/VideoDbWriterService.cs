@@ -9,6 +9,8 @@ using System.Text;
 using System.Security.Cryptography;
 using NetBox.Extensions;
 using Microsoft.EntityFrameworkCore;
+using System.Xml;
+using Polly;
 
 namespace MirrorTube.API.Services
 {
@@ -30,12 +32,11 @@ namespace MirrorTube.API.Services
             var json = JsonConvert.DeserializeObject<VideoData>(File.ReadAllText(filepath));
             if (json == null) return;
 
-            //Format_ID can be appended with a dash and a number, like so: 248+248-1
+            
             VideoDataDto videoData = _mapper.Map<VideoDataDto>(json);
-            FormatDataDto[] formatData = _mapper.Map<FormatDataDto[]>(json.Formats);
-            var formatList = GetFormatData("videoData.FormatID", formatData, json.ID);
-            videoData.SeriesData = GetSeriesData(json);
-            videoData.TrackData = GetTrackData(json);
+            var formatData = GetFormatData(json.FormatID, json.Formats, json.ID);
+            //videoData.SeriesData = GetSeriesData(json);
+            //videoData.TrackData = GetTrackData(json);
 
 
             var captions = await GetSubtitleData(json.Subtitles);
@@ -54,8 +55,8 @@ namespace MirrorTube.API.Services
                 if (dbRecord != null)
                 {
                     //_dbContext.Entry(dbRecord).Collection(c => c.Formats).Load();
-                    _dbContext.Entry(dbRecord).Collection(c => c.Subtitles).Load();
-                    _dbContext.Entry(dbRecord).Collection(c => c.AutomaticCaptions).Load();
+                    //_dbContext.Entry(dbRecord).Collection(c => c.Subtitles).Load();
+                    //_dbContext.Entry(dbRecord).Collection(c => c.AutomaticCaptions).Load();
                 }
                 dbRecord ??= new VideoDataDto();
                 //dbRecord.Formats.AddRange(formatList);
@@ -97,30 +98,41 @@ namespace MirrorTube.API.Services
             return output;
         }
 
-        private FormatDataDto[] GetFormatData(string? formatString, IEnumerable<FormatDataDto> allFormats, string videoID)
+        private static FormatDataDto GetFormatData(string? formatString, IEnumerable<FormatData> allFormats, string VideoID)
         {
-            if(formatString == null) return Array.Empty<FormatDataDto>();
-            var splitIds = formatString.Split("+");
-            if(splitIds.Length > 0)
+            //Format_ID can be appended with a dash and a number, like so: 248+248-1
+            var output = new FormatDataDto();
+            output.VideoID = VideoID;
+            if (formatString == null) return new FormatDataDto();
+            var splitIds = formatString.Split('+');
+            if (splitIds.Length > 0)
             {
-                var formatList = new List<FormatDataDto>();
-                //foreach (var id in splitIds)
-                //{
-                //    var format = allFormats.Where(x => x.FormatId == id).FirstOrDefault();
-                //    if (format != null)
-                //    {
-                //        format.VideoId = videoID;
-                //        format.PK_VideoFormatId = $"{videoID}{format.FormatId}";
-                //        formatList.Add(format);
-                //    }                    
-                //}
-                return formatList.ToArray();
+                var formats = allFormats.Where(r => splitIds.Contains(r.FormatId));
+                foreach (var format in formats)
+                {
+                    if(format.AudioBitrate != null)//audio format
+                    {
+                        output.AudioBitrate = format.AudioBitrate;
+                        output.AudioCodec = format.AudioCodec;
+                        output.AudioSamplingRate = format.AudioSamplingRate;
+                        output.AudioChannels = format.AudioChannels;
+                    }
+                    else if(format.VideoBitrate != null)//video format
+                    {
+                        output.DynamicRange = format.DynamicRange;
+                        output.VideoBitrate = format.VideoBitrate;
+                        output.FrameRate = format.FrameRate;
+                        output.VideoCodec = format.VideoCodec;
+                        output.Resolution = format.Resolution;
+                        output.Width = format.Width;
+                        output.Height = format.Height;
+                        output.FriendlyVideoResolution = format.FormatNote;
+                    }
+                    else { }
+                }
             }
-            else
-            {
-                return Array.Empty<FormatDataDto>();
-            }
-        }
+            return output;
+        }        
 
         private string GenerateUniqueID(VideoDataDto videoData)
         {
@@ -183,9 +195,5 @@ namespace MirrorTube.API.Services
             else { return null; }
         }
     }
-
-    public class Foo : YoutubeDLSharp.Metadata.VideoData
-    {
-
-    }
+    
 }
