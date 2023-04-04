@@ -14,7 +14,6 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
         public string? AudioCodec { get; set; }
         public double? AudioSamplingRate { get; set; }
         public int? AudioChannels { get; set; }
-        public AudioQuality AudioQuality { get; set; }
 
         //Video
         public string? DynamicRange { get; set; }
@@ -25,15 +24,5 @@ namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
         public int? Width { get; set; }
         public int? Height { get; set; }
         public string? FriendlyVideoResolution { get; set; }
-    }
-    public enum AudioQuality
-    {
-        None = 0,
-        Worst = 1,
-        Low = 2,
-        Medium = 3,
-        High = 4,
-        Ultra = 5,
-        Source = 6,
     }
 }
