@@ -4,13 +4,7 @@ using Newtonsoft.Json;
 using YoutubeDLSharp.Metadata;
 using MirrorTube.API.Database.UserData.ModelsDto.YtDlp;
 using AutoMapper;
-using System.Net;
 using System.Text;
-using System.Security.Cryptography;
-using NetBox.Extensions;
-using Microsoft.EntityFrameworkCore;
-using System.Xml;
-using Polly;
 
 namespace MirrorTube.API.Services
 {
@@ -144,9 +138,9 @@ namespace MirrorTube.API.Services
             sb.Append(videoData.ModifiedDate.ToString());
             sb.Append(videoData.ModifiedTimestamp.ToString());
 
-            var dataBytes = Encoding.UTF8.GetBytes(sb.ToString());
+            var dataBytes = (ReadOnlySpan<byte>)Encoding.UTF8.GetBytes(sb.ToString());
 
-            var uniqueID = BitConverter.ToString(SHA1.HashData(dataBytes)).Replace("-", "");
+            var uniqueID = Blake3.Hasher.Hash(dataBytes).ToString();
             return uniqueID;
         }
 

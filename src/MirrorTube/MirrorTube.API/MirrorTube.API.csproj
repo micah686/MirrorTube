@@ -18,6 +18,7 @@
 	
   <ItemGroup>    
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />    
+    <PackageReference Include="Blake3" Version="0.5.1" />    
     <PackageReference Include="FluentStorage" Version="5.0.0" />    
     <PackageReference Include="FluentStorage.AWS" Version="5.0.0" />    
     <PackageReference Include="FluentStorage.FTP" Version="5.0.0" />    
