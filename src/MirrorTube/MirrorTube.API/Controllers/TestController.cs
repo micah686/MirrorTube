@@ -18,7 +18,7 @@ namespace MirrorTube.API.Controllers
         [HttpGet]
         public async Task<string> DoThing()
         {
-            var json = @"C:\Users\Micah\source\repos\MirrorTube\src\MirrorTube\MirrorTube.API\bin\Debug\net6.0\Data\UserData\youtube\[qlrvzLRgzdc]_20220903_Hoist_the_Colours_The_Bass_Singers_of_TikTok.info.json";
+            var json = @"C:\Users\Micah\source\repos\micah686\MirrorTube\src\MirrorTube\MirrorTube.API\bin\Debug\net6.0\Data\UserData\youtube\[9CunwUs08og]_20230326_I_Beat_Netflix_s_Password_Sharing_Crackdown.info.json";
             await _videoDbWriterService.SaveInfoToDb(json);
             return "";
         }

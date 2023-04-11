@@ -6,6 +6,22 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;SQL80001;</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;SQL80001;</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Database\SQL_Scripts\Create_Tables.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Database\SQL_Scripts\Create_Tables.sql" />
+  </ItemGroup>
+
 	<!--<PropertyGroup>
 		<BeautySharedRuntimeMode>False</BeautySharedRuntimeMode>
 		<BeautyLibsDir>./libs</BeautyLibsDir>
@@ -23,8 +39,6 @@
     <PackageReference Include="FluentStorage.AWS" Version="5.0.0" />    
     <PackageReference Include="FluentStorage.FTP" Version="5.0.0" />    
     <PackageReference Include="FluentStorage.SFTP" Version="5.0.0" />    
-    <PackageReference Include="Innofactor.EfCoreJsonValueConverter" Version="6.0.0" />    
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.4" />    
     <PackageReference Include="nulastudio.NetBeauty" Version="2.1.1" />    
     <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />    
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
@@ -32,13 +46,6 @@
 	  <PackageReference Include="Hangfire.AspNetCore" Version="1.8.0-rc2" />
 	  <PackageReference Include="Hangfire.Core" Version="1.8.0-rc2" />
 	  <PackageReference Include="Hangfire.Storage.SQLite" Version="0.3.3" />
-	  <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.8" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.3" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.3">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	  </PackageReference>
 	  <PackageReference Include="YoutubeDLSharp" Version="1.0.0-beta4" />
   </ItemGroup>
 

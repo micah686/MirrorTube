@@ -1,13 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using YoutubeDLSharp.Converters;
-using YoutubeDLSharp.Metadata;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using AutoMapper.Configuration.Annotations;
-using Newtonsoft.Json.Linq;
-using System.Runtime.Serialization;
-
-namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
+﻿namespace MirrorTube.API.Database.UserData.ModelsDto.YtDlp
 {
 
     public class VideoDataDto

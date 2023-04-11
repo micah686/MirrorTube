@@ -1,12 +1,7 @@
 global using MirrorTube.Common;
-
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using MirrorTube.API.Database;
 using Hangfire;
 using Hangfire.Dashboard;
 using Hangfire.Storage.SQLite;
-using MirrorTube.API.Database.Identity;
 using MirrorTube.API.Interfaces;
 using MirrorTube.API.Services;
 using MirrorTube.API.Database.UserData;
@@ -31,18 +26,6 @@ namespace MirrorTube.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            //Identity
-            builder.Services.AddDbContext<AppIdentityDbContext>(options =>
-            {
-                options.UseSqlite($"Data Source={Globals.DbIdentity}");
-            });
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
-            {
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireDigit = false;                
-            }).AddEntityFrameworkStores<AppIdentityDbContext>();
 
             //Hangfire
             builder.Services.AddHangfire(configuration =>
@@ -56,10 +39,6 @@ namespace MirrorTube.API
             });
             builder.Services.AddHangfireServer();
 
-            builder.Services.AddDbContext<UserDatadbContext>(options =>
-            {
-                options.UseSqlite($"Data Source={Globals.DbMirrorTube}");
-            });
 
             builder.Services.AddTransient<IStorageService, StorageService>();
             builder.Services.AddTransient<IDownloadService, DownloadService>();

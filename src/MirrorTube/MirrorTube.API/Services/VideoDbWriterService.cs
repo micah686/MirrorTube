@@ -10,54 +10,35 @@ namespace MirrorTube.API.Services
 {
     public class VideoDbWriterService : IVideoDbWriterService
     {
-        private readonly HttpClient _httpClient = new HttpClient();
-        private readonly UserDatadbContext _dbContext;
+        private readonly HttpClient _httpClient = new HttpClient();        
         private readonly IMapper _mapper;
-        public VideoDbWriterService(UserDatadbContext dbContext, IMapper mapper)
+        public VideoDbWriterService(IMapper mapper)
         {
-            _dbContext = dbContext;
             _mapper = mapper;
         }
 
 
         async Task IVideoDbWriterService.SaveInfoToDb(string filepath)
         {
-            var jData = File.ReadAllText(filepath);
-            var json = JsonConvert.DeserializeObject<VideoData>(File.ReadAllText(filepath));
-            if (json == null) return;
-
-            
-            VideoDataDto videoData = _mapper.Map<VideoDataDto>(json);
-            var formatData = GetFormatData(json.FormatID, json.Formats, json.ID);
-            //videoData.SeriesData = GetSeriesData(json);
-            //videoData.TrackData = GetTrackData(json);
-
-
-            var captions = await GetSubtitleData(json.Subtitles);
-            var subs = await GetSubtitleData(json.Subtitles);
-
-
-
-            //videoData.Subtitles = subs;
-            //videoData.AutomaticCaptions = captions;
-
-            //var uniqueID = GenerateUniqueID(videoData);
 
             try
             {
-                var dbRecord = _dbContext.VideoDataDto.FirstOrDefault(x => x.VideoID == json.ID);
-                if (dbRecord != null)
-                {
-                    //_dbContext.Entry(dbRecord).Collection(c => c.Formats).Load();
-                    //_dbContext.Entry(dbRecord).Collection(c => c.Subtitles).Load();
-                    //_dbContext.Entry(dbRecord).Collection(c => c.AutomaticCaptions).Load();
-                }
-                dbRecord ??= new VideoDataDto();
-                //dbRecord.Formats.AddRange(formatList);
+                var jData = File.ReadAllText(filepath);
+                var json = JsonConvert.DeserializeObject<VideoData>(File.ReadAllText(filepath));
+                if (json == null) return;
 
 
-                _dbContext.Update(dbRecord);
-                await _dbContext.SaveChangesAsync();
+                VideoData videoData = _mapper.Map<VideoData>(json);
+                var formatData = GetFormatData(json.FormatID, json.Formats, json.ID);
+                //videoData.SeriesData = GetSeriesData(json);
+                //videoData.TrackData = GetTrackData(json);
+
+
+                var captions = await GetSubtitleData(json.Subtitles);
+                var subs = await GetSubtitleData(json.Subtitles);
+                
+
+                var uniqueID = GenerateUniqueID(videoData);
             }
             catch (Exception ex)
             {
@@ -128,10 +109,10 @@ namespace MirrorTube.API.Services
             return output;
         }        
 
-        private string GenerateUniqueID(VideoDataDto videoData)
+        private string GenerateUniqueID(VideoData videoData)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(videoData.VideoID);
+            sb.Append(videoData.ID);
             sb.Append(videoData.WebpageUrl);
             sb.Append(videoData.UploadDate.ToString());
             sb.Append(videoData.Timestamp.ToString());
