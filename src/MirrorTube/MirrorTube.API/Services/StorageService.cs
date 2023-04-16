@@ -2,9 +2,9 @@
 using FluentFTP;
 using FluentStorage;
 using FluentStorage.Blobs;
-using MirrorTube.API.Configuration;
-using MirrorTube.API.Configuration.Storage;
 using MirrorTube.API.Interfaces;
+using MirrorTube.Common.Configuration;
+using MirrorTube.Common.Configuration.Storage;
 using Renci.SshNet;
 using System.Net;
 using static System.Net.WebRequestMethods;

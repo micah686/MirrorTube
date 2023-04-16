@@ -1,6 +1,6 @@
-﻿using MirrorTube.API.Configuration.Storage;
+﻿using MirrorTube.Common.Configuration.Storage;
 
-namespace MirrorTube.API.Configuration
+namespace MirrorTube.Common.Configuration
 {
     public interface IStorageConfiguration
     {
@@ -8,7 +8,7 @@ namespace MirrorTube.API.Configuration
         IFtpConfig FtpConfig { get; set; }
         ISftpConfig SftpConfig { get; set; }
         IAWSS3Config AWSS3Config { get; set; }
-        
+
     }
 
 }

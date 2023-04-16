@@ -1,4 +1,4 @@
-﻿using MirrorTube.API.Configuration;
+﻿using MirrorTube.Common.Configuration;
 
 namespace MirrorTube.Common
 {

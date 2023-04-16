@@ -1,4 +1,4 @@
-﻿namespace MirrorTube.API.Configuration
+﻿namespace MirrorTube.Common.Configuration
 {
     public interface IStorageSettings
     {

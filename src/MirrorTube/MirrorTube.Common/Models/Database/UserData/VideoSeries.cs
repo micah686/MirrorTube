@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ServiceStack.DataAnnotations;
 
 namespace MirrorTube.Common.Models.Database.UserData
 {
     internal class VideoSeries
     {
+        [PrimaryKey]
         public string? VideoId { get; set; }
 
         public string? Series { get; set; }

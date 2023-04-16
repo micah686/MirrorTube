@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ServiceStack.DataAnnotations;
 
 namespace MirrorTube.Common.Models.Database.UserData
 {
-    internal class VideoCommentsDto
+    internal class VideoComment
     {
+        [PrimaryKey]
+        public string CommentId { get; set; }
         public string VideoId { get; set; }
         public string Author { get; set; }
         public string AuthorID { get; set; }
+        public VideoCommentPicture? AuthorPicturePath { get; set; }
 
         public string HtmlComment { get; set; }
 

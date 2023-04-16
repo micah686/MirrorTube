@@ -1,5 +1,5 @@
 ﻿using Config.Net;
-using MirrorTube.API.Configuration;
+using MirrorTube.Common.Configuration;
 using MirrorTube.Common.Secure;
 namespace MirrorTube.API
 {

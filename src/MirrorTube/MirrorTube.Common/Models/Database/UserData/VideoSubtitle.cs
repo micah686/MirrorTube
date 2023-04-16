@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ServiceStack.DataAnnotations;
 
 namespace MirrorTube.Common.Models.Database.UserData
 {
-    internal class Subtitles
+    internal class VideoSubtitle
     {
+        [PrimaryKey]
         public string? UniqueVideoId { get; set; }
         public string? SubtitleData { get; set; }
         public SubtitleType SubtitleType { get; set; }
