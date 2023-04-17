@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MirrorTube.Common.Models.Database.UserData
 {
-    internal class VideoTrack
+    public class VideoTrack
     {
         [PrimaryKey]
         public string? VideoID { get; set; }

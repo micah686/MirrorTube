@@ -2,7 +2,7 @@
 
 namespace MirrorTube.Common.Models.Database.UserData
 {
-    internal class VideoLookup
+    public class VideoLookup
     {
         [PrimaryKey]
         public string UniqueVideoId { get; set; }

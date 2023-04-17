@@ -2,7 +2,7 @@
 
 namespace MirrorTube.Common.Models.Database.UserData
 {
-    internal class ChannelInfo
+    public class ChannelInfo
     {
         [PrimaryKey]
         public string? ChannelID { get; set; }

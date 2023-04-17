@@ -5,15 +5,19 @@ using Hangfire.Storage.SQLite;
 using MirrorTube.API.Interfaces;
 using MirrorTube.API.Services;
 using MirrorTube.API.Database.UserData;
+using ServiceStack;
 
 namespace MirrorTube.API
 {
     public class Program
     {
         public static string BasePath { get; } = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) ?? "";
-
+        
         public static void Main(string[] args)
-        {
+        {            
+            var appConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            ServiceStack.Licensing.RegisterLicense(appConfig["servicestack:license"]);
+
             StartupChecks.RunStartupChecks();
             
             #region Builder

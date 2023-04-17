@@ -2,7 +2,7 @@
 
 namespace MirrorTube.Common.Models.Database.UserData
 {
-    internal class VideoComment
+    public class VideoComment
     {
         [PrimaryKey]
         public string CommentId { get; set; }

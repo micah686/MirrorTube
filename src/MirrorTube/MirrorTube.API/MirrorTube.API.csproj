@@ -42,6 +42,7 @@
     <PackageReference Include="FluentStorage.SFTP" Version="5.0.0" />    
     <PackageReference Include="nulastudio.NetBeauty" Version="2.1.1" />    
     <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />    
+    <PackageReference Include="ServiceStack.OrmLite.PostgreSQL.Core" Version="6.8.0" />    
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 	  <PackageReference Include="Config.Net" Version="5.1.2" />
 	  <PackageReference Include="Hangfire.AspNetCore" Version="1.8.0-rc2" />

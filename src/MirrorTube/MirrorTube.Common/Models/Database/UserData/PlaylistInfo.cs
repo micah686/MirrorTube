@@ -1,6 +1,6 @@
 ﻿namespace MirrorTube.Common.Models.Database.UserData
 {
-    internal class PlaylistInfo
+    public class PlaylistInfo
     {
         public string VideoId { get; set; }
         public string? PlaylistTitle { get; set; }

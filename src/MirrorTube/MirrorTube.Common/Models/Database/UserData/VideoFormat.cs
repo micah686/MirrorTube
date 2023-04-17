@@ -2,7 +2,7 @@
 
 namespace MirrorTube.Common.Models.Database.UserData
 {
-    internal class VideoFormat
+    public class VideoFormat
     {
         //Have VideoID or some other PK
         [Key]
