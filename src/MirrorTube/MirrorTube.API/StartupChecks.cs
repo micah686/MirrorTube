@@ -2,6 +2,7 @@
 using MirrorTube.Common.Configuration;
 using MirrorTube.Common.Secure;
 using ServiceStack.OrmLite;
+using MirrorTube.Common.Models.Database.UserData;
 
 namespace MirrorTube.API
 {
@@ -44,7 +45,10 @@ namespace MirrorTube.API
 
             using (var db = dbFactory.Open())
             {
-
+                db.DropAndCreateTable<VideoInfoHistory>();
+                db.DropAndCreateTable<VideoInfoLatest>();
+                db.DropAndCreateTable<VideoFormat>();
+                db.DropAndCreateTable<VideoInfo>();
             }
         }
     }

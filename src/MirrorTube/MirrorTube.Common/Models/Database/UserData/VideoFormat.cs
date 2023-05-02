@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ServiceStack.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace MirrorTube.Common.Models.Database.UserData
 {
     public class VideoFormat
     {
         //Have VideoID or some other PK
-        [Key]
+        [PrimaryKey]
+        [ForeignKey(typeof(VideoInfoLatest))]
         public string? VideoID { get; set; }
 
         //audio
