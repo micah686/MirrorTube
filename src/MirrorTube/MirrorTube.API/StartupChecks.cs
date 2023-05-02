@@ -1,6 +1,8 @@
 ﻿using Config.Net;
 using MirrorTube.Common.Configuration;
 using MirrorTube.Common.Secure;
+using ServiceStack.OrmLite;
+
 namespace MirrorTube.API
 {
     public static class StartupChecks
@@ -14,6 +16,8 @@ namespace MirrorTube.API
                 SecureStore.CreateSecureStore();
             }
             DownloadBinaries();
+
+            CreateTables();
         }
 
         private static void CreateDirectories()
@@ -31,6 +35,17 @@ namespace MirrorTube.API
             if (!File.Exists(ytdlp)) { YoutubeDLSharp.Utils.DownloadYtDlp(Path.GetDirectoryName(ytdlp)); }
             if (!File.Exists(ffmpeg)) { YoutubeDLSharp.Utils.DownloadFFmpeg(Path.GetDirectoryName(ffmpeg)); }
             if (!File.Exists(ffprobe)) { YoutubeDLSharp.Utils.DownloadFFprobe(Path.GetDirectoryName(ffprobe)); }
+        }
+
+        private static void CreateTables()
+        {
+            var conn_str = "User ID=postgres;Password=123456;Host=localhost;Port=5432;Database=postgres;Include Error Detail=true";
+            var dbFactory = new OrmLiteConnectionFactory(conn_str, PostgreSqlDialect.Provider);
+
+            using (var db = dbFactory.Open())
+            {
+
+            }
         }
     }
 }
