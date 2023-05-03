@@ -6,6 +6,7 @@ namespace MirrorTube.Common.Models.Database.UserData
     public class VideoTrack
     {
         [PrimaryKey]
+        [ForeignKey(typeof(VideoInfoLatest))]
         public string? VideoID { get; set; }
 
         public string? Track { get; set; }

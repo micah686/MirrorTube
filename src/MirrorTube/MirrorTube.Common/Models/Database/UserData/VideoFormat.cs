@@ -5,7 +5,6 @@ namespace MirrorTube.Common.Models.Database.UserData
 {
     public class VideoFormat
     {
-        //Have VideoID or some other PK
         [PrimaryKey]
         [ForeignKey(typeof(VideoInfoLatest))]
         public string? VideoID { get; set; }
