@@ -5,6 +5,7 @@ using YoutubeDLSharp.Metadata;
 using MirrorTube.API.Database.UserData.ModelsDto.YtDlp;
 using AutoMapper;
 using System.Text;
+using MirrorTube.Common.Models;
 
 namespace MirrorTube.API.Services
 {
@@ -37,8 +38,15 @@ namespace MirrorTube.API.Services
                 var captions = await GetSubtitleData(json.Subtitles);
                 var subs = await GetSubtitleData(json.Subtitles);
                 
-
-                var uniqueID = GenerateUniqueID(videoData);
+                var mixValues = new List<string>()
+                    {   videoData.ID,
+                        videoData.WebpageUrl,
+                        videoData.UploadDate?.ToString()??"",
+                        videoData.Timestamp?.ToString()??"",
+                        videoData.ModifiedDate ?.ToString() ?? "",
+                        videoData.ModifiedTimestamp ?.ToString() ?? ""
+                    };
+                GenerateUniqueID(mixValues);
             }
             catch (Exception ex)
             {
@@ -109,19 +117,13 @@ namespace MirrorTube.API.Services
             return output;
         }        
 
-        private string GenerateUniqueID(VideoData videoData)
+
+
+        public HexId GenerateUniqueID(IEnumerable<string> mixValues)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(videoData.ID);
-            sb.Append(videoData.WebpageUrl);
-            sb.Append(videoData.UploadDate.ToString());
-            sb.Append(videoData.Timestamp.ToString());
-            sb.Append(videoData.ModifiedDate.ToString());
-            sb.Append(videoData.ModifiedTimestamp.ToString());
-
-            var dataBytes = (ReadOnlySpan<byte>)Encoding.UTF8.GetBytes(sb.ToString());
-
-            var uniqueID = Blake3.Hasher.Hash(dataBytes).ToString();
+            var data = string.Join("", mixValues);
+            var dataBytes = (ReadOnlySpan<byte>)Encoding.UTF8.GetBytes(data);
+            HexId uniqueID = Blake3.Hasher.Hash(dataBytes).ToString();
             return uniqueID;
         }
 

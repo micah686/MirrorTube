@@ -6,7 +6,7 @@ namespace MirrorTube.Common.Models.Database.UserData
     {
         [PrimaryKey]
         [ForeignKey(typeof(VideoInfoHistory))]
-        public string UniuqeVideoId { get; set; }
+        public HexId UniuqeVideoId { get; set; }
         [ForeignKey(typeof(VideoInfoLatest))]
         public string? VideoID { get; set; }
         public DateTime MetadataScrapeDate { get; } = DateTime.UtcNow;

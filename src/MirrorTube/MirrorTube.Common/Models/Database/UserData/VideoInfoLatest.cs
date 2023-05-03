@@ -11,6 +11,6 @@ namespace MirrorTube.Common.Models.Database.UserData
     {
         [PrimaryKey]
         public string VideoId { get; set; }
-        public string UniqueVideoId { get; set; }
+        public HexId UniqueVideoId { get; set; }
     }
 }

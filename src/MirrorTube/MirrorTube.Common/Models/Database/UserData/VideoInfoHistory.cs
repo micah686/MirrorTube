@@ -10,7 +10,7 @@ namespace MirrorTube.Common.Models.Database.UserData
     public class VideoInfoHistory
     {
         [PrimaryKey]
-        public string UniqueVideoId { get; set; }
+        public HexId UniqueVideoId { get; set; }
         public string VideoId { get; set; }
         public DateTime MetadataDate { get; set; }
     }
