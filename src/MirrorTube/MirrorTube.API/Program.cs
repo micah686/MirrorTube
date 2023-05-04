@@ -4,7 +4,6 @@ using Hangfire.Dashboard;
 using Hangfire.Storage.SQLite;
 using MirrorTube.API.Interfaces;
 using MirrorTube.API.Services;
-using MirrorTube.API.Database.UserData;
 using ServiceStack;
 
 namespace MirrorTube.API
@@ -48,10 +47,10 @@ namespace MirrorTube.API
             builder.Services.AddTransient<IDownloadService, DownloadService>();
             builder.Services.AddTransient<IVideoDbWriterService, VideoDbWriterService>();
 
-            builder.Services.AddAutoMapper(m =>
-            {
-                m.AddProfile<MapperProfile>();
-            });
+            //builder.Services.AddAutoMapper(m =>
+            //{
+            //    m.AddProfile<MapperProfile>();
+            //});
             
 
 

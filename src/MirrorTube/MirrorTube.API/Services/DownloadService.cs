@@ -1,5 +1,4 @@
 ﻿using FluentStorage.Blobs;
-using MirrorTube.API.Database.UserData;
 using MirrorTube.API.Interfaces;
 using Newtonsoft.Json;
 using YoutubeDLSharp;

@@ -1,5 +1,4 @@
-﻿using Config.Net;
-using FluentFTP;
+﻿using FluentFTP;
 using FluentStorage;
 using FluentStorage.Blobs;
 using MirrorTube.API.Interfaces;
@@ -7,7 +6,6 @@ using MirrorTube.Common.Configuration;
 using MirrorTube.Common.Configuration.Storage;
 using Renci.SshNet;
 using System.Net;
-using static System.Net.WebRequestMethods;
 
 namespace MirrorTube.API.Services
 {
