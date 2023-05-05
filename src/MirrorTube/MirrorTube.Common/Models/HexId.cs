@@ -1,4 +1,6 @@
-﻿namespace MirrorTube.Common.Models
+﻿using System.Text;
+
+namespace MirrorTube.Common.Models
 {
     public sealed class HexId
     {
@@ -22,6 +24,13 @@
             const int _TOTAL_LENGTH = 64;
             if (inputValue.Length != _TOTAL_LENGTH) { throw new InvalidIdException("Length must be exactly 64 characters long"); }
             if (inputValue.All("0123456789abcdefABCDEF".Contains) == false) { throw new InvalidIdException("Must only contain characters 0-9 and A-F"); }
+        }
+        public static HexId GenerateUniqueHexId(IEnumerable<string> mixValues)
+        {
+            var data = string.Join("", mixValues);
+            var dataBytes = (ReadOnlySpan<byte>)Encoding.UTF8.GetBytes(data);
+            HexId uniqueID = Blake3.Hasher.Hash(dataBytes).ToString();
+            return uniqueID;
         }
     }
 

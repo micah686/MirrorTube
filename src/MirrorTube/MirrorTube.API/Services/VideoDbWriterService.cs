@@ -58,10 +58,8 @@ namespace MirrorTube.API.Services
 
         public HexId GenerateUniqueID(IEnumerable<string> mixValues)
         {
-            var data = string.Join("", mixValues);
-            var dataBytes = (ReadOnlySpan<byte>)Encoding.UTF8.GetBytes(data);
-            HexId uniqueID = Blake3.Hasher.Hash(dataBytes).ToString();
-            return uniqueID;
+            HexId hexId = Common.Models.HexId.GenerateUniqueHexId(mixValues);
+            return hexId;
         }
 
     }
