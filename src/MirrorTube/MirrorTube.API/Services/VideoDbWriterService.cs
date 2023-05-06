@@ -28,6 +28,7 @@ namespace MirrorTube.API.Services
 
 
                 //VideoData videoData = _mapper.Map<VideoData>(json);
+                var videoInfo = await VideoInfoFormatter.GetVideoInfo(videoData);
 
                 var videoTrack = VideoInfoFormatter.GetTrackData(videoData);
                 var videoSeries = VideoInfoFormatter.GetSeriesData(videoData);

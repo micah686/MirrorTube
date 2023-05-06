@@ -10,7 +10,9 @@ namespace MirrorTube.Common.Models.Database.UserData
         [ForeignKey(typeof(VideoInfoLatest))]
         public string? VideoID { get; set; }
         public DateTime MetadataScrapeDate { get; } = DateTime.UtcNow;
-        
+        public long ThumbnailPathId { get; set; }
+
+
         public int? AgeLimit { get; set; }
         public float? AverageRating { get; set; }
         public string? Description { get; set; }
@@ -31,6 +33,8 @@ namespace MirrorTube.Common.Models.Database.UserData
         public string? ChannelUrl { get; set; }
         public string? ExtractorKey { get; set; }
         public string? License { get; set; }
+        public string Uploader { get; set; }
+        public string Location { get; set; }
 
         //break these out into own tables?
         public string[]? VideoCast { get; set; }

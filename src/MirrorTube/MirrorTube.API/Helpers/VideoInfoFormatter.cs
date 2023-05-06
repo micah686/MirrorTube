@@ -1,11 +1,117 @@
-﻿using MirrorTube.Common.Models.Database.UserData;
+﻿using Microsoft.AspNetCore.SignalR;
+using MirrorTube.Common.Helpers;
+using MirrorTube.Common.Models.Database.UserData;
 using YoutubeDLSharp.Metadata;
+using Availability = MirrorTube.Common.Models.Database.UserData.Availability;
 
 namespace MirrorTube.API.Helpers
 {
     internal class VideoInfoFormatter
     {
         private static readonly HttpClient _httpClient = new HttpClient() {Timeout = TimeSpan.FromSeconds(45) };
+
+        internal static async Task<VideoInfo> GetVideoInfo(VideoData videoData)
+        {
+            var thumbnail = await _httpClient.GetStreamAsync(videoData.Thumbnail);
+            long tid = FileStorage.StoreStreamData(Common.Models.StoragePath.Thumbnails, thumbnail);
+            var videoInfo = new VideoInfo()
+            {
+                Title = videoData.Title,
+                
+                Extension = videoData.Extension,
+                Description = videoData.Description,
+                License = videoData.License,
+                ModifiedDate = videoData.ModifiedDate,
+                ModifiedTimestamp = videoData.ModifiedTimestamp,
+                UploadDate = videoData.UploadDate,
+                UploadDateTimestamp = videoData.Timestamp,
+                ThumbnailPathId = tid,
+                Uploader = videoData.Uploader,
+                Location = videoData.Location,
+                ChannelID = videoData.ChannelID,
+                ChannelUrl = videoData.ChannelUrl,
+                Duration = videoData.Duration,
+                ViewCount = videoData.ViewCount,
+                LikeCount = videoData.LikeCount,
+                DislikeCount = videoData.DislikeCount,
+                CommentCount = videoData.CommentCount,
+                AverageRating = (float?)videoData.AverageRating,
+                AgeLimit = videoData.AgeLimit,
+                WebpageUrl = videoData.WebpageUrl,
+                Categories = videoData.Categories,
+                Tags = videoData.Tags,
+                VideoCast = videoData.Cast,
+                WasLive = videoData.WasLive,
+                Availability = (Availability)Enum.Parse(typeof(Availability), videoData.Availability.ToString()),
+                ExtractorKey = videoData.ExtractorKey,
+            };
+            return videoInfo;
+        }
+
+        //internal static async Task<List<VideoComment>> GetCommentData(IEnumerable<CommentData> comments)
+        //{
+        //    var output = new List<VideoComment>();
+        //    foreach (var comment in comments)
+        //    {
+        //        output.Add(new VideoComment
+        //        {
+        //            Author = comment.Author,
+        //            AuthorID = comment.AuthorID,
+        //            AuthorPicturePath = comment.AuthorThumbnail,
+        //            HtmlComment = comment.Html,
+        //            TextComment = comment.Text,
+        //            CommentTimestamp = comment.Timestamp,
+        //            ParentComment = comment.Parent,
+        //            LikeCount = comment.LikeCount,
+        //            DislikeCount = comment.DislikeCount,
+        //            IsFavorited = comment.IsFavorited,
+        //            AuthorIsUploader = comment.AuthorIsUploader,
+
+        //        });
+        //    }
+        //}
+
+        internal static List<VideoChapter> GetChapterData(IEnumerable<ChapterData> chapters)
+        {
+            var output = new List<VideoChapter>();
+            foreach (var chapter in chapters)
+            {
+                output.Add(new VideoChapter
+                {
+                    StartTime = chapter.StartTime,
+                    EndTime = chapter.EndTime,
+                    Title = chapter.Title,
+                });
+            }
+            return output;
+        }
+
+        internal static async Task<List<VideoCaption>> GetCaptionData(Dictionary<string, SubtitleData[]> input)
+        {
+            List<VideoCaption> output = new List<VideoCaption>();
+            foreach (var langList in input)
+            {
+                foreach (var sub in langList.Value)
+                {
+
+                    var subData = new VideoCaption()
+                    {
+                        CaptionLanguage = sub.Name,
+                    };
+                    Enum.TryParse(sub.Ext, true, out SubtitleType subType);
+                    subData.CaptionType = subType;
+
+                    try
+                    {
+                        var data = await _httpClient.GetStringAsync(sub.Url);
+                        subData.CaptionData = data;
+                    }
+                    catch (Exception) { continue; }
+                    output.Add(subData);
+                }
+            }
+            return output;
+        }
 
         internal static async Task<List<VideoSubtitle>> GetSubtitleData(Dictionary<string, SubtitleData[]> input)
         {
