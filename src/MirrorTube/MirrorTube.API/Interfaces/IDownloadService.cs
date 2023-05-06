@@ -2,7 +2,7 @@
 {
     public interface IDownloadService
     {
-        public Task DownloadVideo(string url);
+        public Task<string> DownloadVideo(string url);
         public Task DownloadVideoPlaylist(string url);
 
         public Task DownloadAudio(string url);

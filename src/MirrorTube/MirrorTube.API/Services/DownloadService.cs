@@ -1,4 +1,5 @@
 ﻿using FluentStorage.Blobs;
+using Hangfire;
 using MirrorTube.API.Interfaces;
 using Newtonsoft.Json;
 using YoutubeDLSharp;
@@ -64,13 +65,15 @@ namespace MirrorTube.API.Services
             throw new NotImplementedException();
         }
 
-        public async Task DownloadVideo(string url)
+        [ContinuationsSupport(pushResults: true)]
+        public async Task<string> DownloadVideo(string url)
         {
             var randomDirName = Path.GetRandomFileName();
             var ytdl = CreateYtDlpInstance(randomDirName);
             var output = await ytdl.RunVideoDownload(url, overrideOptions:CreateOptionSetInstance());
             var filepath = output.Data;
-
+            string outputPath= string.Empty;
+            
             if (!string.IsNullOrEmpty(filepath))
             {
                 var infoJsonPath = Path.ChangeExtension(filepath, "info.json");
@@ -82,13 +85,11 @@ namespace MirrorTube.API.Services
 
                 var blobVideoPath = filepath.Replace($"{Path.Combine(_tempDownloadPath, randomDirName)}\\", string.Empty);
                 await _storage.WriteFileAsync(blobVideoPath, filepath);
+                outputPath= Path.Combine(Globals.UserDataPath, Path.ChangeExtension(blobVideoPath, "info.json"));
 
-
-                await _videoDbWriterService.SaveInfoToDb(infoJsonPath);
-                var jdata = JsonConvert.DeserializeObject<VideoData>(File.ReadAllText(infoJsonPath));
-                var foo = jdata;
             }
             Directory.Delete(Path.Combine(_tempDownloadPath, randomDirName), true);
+            return outputPath;
         }
 
         Task IDownloadService.DownloadVideoPlaylist(string url)

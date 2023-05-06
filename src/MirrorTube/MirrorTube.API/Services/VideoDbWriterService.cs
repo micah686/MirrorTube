@@ -5,6 +5,8 @@ using AutoMapper;
 using System.Text;
 using MirrorTube.Common.Models;
 using MirrorTube.API.Helpers;
+using Hangfire.Server;
+using Polly;
 
 namespace MirrorTube.API.Services
 {
@@ -17,7 +19,14 @@ namespace MirrorTube.API.Services
         }
 
 
-        async Task IVideoDbWriterService.SaveInfoToDb(string filepath)
+        public async Task StartWriteToDb(PerformContext? context)
+        {
+            if (context == null) { return; }
+            var filepath = context.GetJobParameter<string>("AntecedentResult");
+            await SaveInfoToDb(filepath);
+        }
+
+        public async Task SaveInfoToDb(string filepath)
         {
 
             try
