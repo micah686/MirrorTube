@@ -40,6 +40,7 @@
     <PackageReference Include="FluentStorage.AWS" Version="5.0.0" />    
     <PackageReference Include="FluentStorage.FTP" Version="5.0.0" />    
     <PackageReference Include="FluentStorage.SFTP" Version="5.0.0" />    
+    <PackageReference Include="Hangfire.PostgreSql" Version="1.19.12" />    
     <PackageReference Include="nulastudio.NetBeauty" Version="2.1.1" />    
     <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />    
     <PackageReference Include="ServiceStack.OrmLite.PostgreSQL.Core" Version="6.8.0" />    
@@ -47,7 +48,6 @@
 	  <PackageReference Include="Config.Net" Version="5.1.2" />
 	  <PackageReference Include="Hangfire.AspNetCore" Version="1.8.0-rc2" />
 	  <PackageReference Include="Hangfire.Core" Version="1.8.0-rc2" />
-	  <PackageReference Include="Hangfire.Storage.SQLite" Version="0.3.3" />
 	  <PackageReference Include="YoutubeDLSharp" Version="1.0.0-beta4" />
   </ItemGroup>
 

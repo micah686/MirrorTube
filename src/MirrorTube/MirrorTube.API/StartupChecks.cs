@@ -8,7 +8,7 @@ namespace MirrorTube.API
 {
     public static class StartupChecks
     {
-        internal static void RunStartupChecks()
+        internal static void RunStartupChecks(IConfigurationRoot appConfig)
         {
             CreateDirectories();
             Globals.ConfigSettings = new ConfigurationBuilder<ISettingsRoot>().UseJsonFile(Path.Combine(Globals.ServerDataPath, "config.json")).Build();
@@ -18,7 +18,7 @@ namespace MirrorTube.API
             }
             DownloadBinaries();
 
-            CreateTables();
+            CreateTables(appConfig);
         }
 
         private static void CreateDirectories()
@@ -38,10 +38,9 @@ namespace MirrorTube.API
             if (!File.Exists(ffprobe)) { YoutubeDLSharp.Utils.DownloadFFprobe(Path.GetDirectoryName(ffprobe)); }
         }
 
-        private static void CreateTables()
+        private static void CreateTables(IConfigurationRoot appConfig)
         {
-            var conn_str = "User ID=postgres;Password=123456;Host=localhost;Port=5432;Database=postgres;Include Error Detail=true";
-            var dbFactory = new OrmLiteConnectionFactory(conn_str, PostgreSqlDialect.Provider);
+            var dbFactory = new OrmLiteConnectionFactory(appConfig.GetConnectionString("DatabaseConnection"), PostgreSqlDialect.Provider);
 
             using (var db = dbFactory.Open())
             {

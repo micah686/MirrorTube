@@ -1,7 +1,7 @@
 global using MirrorTube.Common;
 using Hangfire;
 using Hangfire.Dashboard;
-using Hangfire.Storage.SQLite;
+using Hangfire.PostgreSql;
 using MirrorTube.API.Interfaces;
 using MirrorTube.API.Services;
 using ServiceStack;
@@ -17,7 +17,8 @@ namespace MirrorTube.API
             var appConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             ServiceStack.Licensing.RegisterLicense(appConfig["servicestack:license"]);
 
-            StartupChecks.RunStartupChecks();
+
+            StartupChecks.RunStartupChecks(appConfig);
             
             #region Builder
             var builder = WebApplication.CreateBuilder(args);
@@ -33,7 +34,7 @@ namespace MirrorTube.API
             //Hangfire
             builder.Services.AddHangfire(configuration =>
             {
-                configuration.UseSQLiteStorage(Globals.DbHangfire);
+                configuration.UsePostgreSqlStorage(appConfig.GetConnectionString("DatabaseConnection"));
                 configuration.UseDarkModeSupportForDashboard();
                 configuration.UseSimpleAssemblyNameTypeSerializer();
                 configuration.UseRecommendedSerializerSettings();
