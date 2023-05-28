@@ -79,11 +79,11 @@ namespace MirrorTube.API.Services
                 var infoJsonPath = Path.ChangeExtension(filepath, "info.json");
                 if (File.Exists(infoJsonPath))
                 {
-                    var blobInfoJsonPath = infoJsonPath.Replace($"{Path.Combine(_tempDownloadPath, randomDirName)}\\", string.Empty);
+                    var blobInfoJsonPath = infoJsonPath.Replace($"{Path.Combine(_tempDownloadPath, randomDirName)}\\", @"videos\");
                     await _storage.WriteFileAsync(blobInfoJsonPath, infoJsonPath);
                 }
 
-                var blobVideoPath = filepath.Replace($"{Path.Combine(_tempDownloadPath, randomDirName)}\\", string.Empty);
+                var blobVideoPath = filepath.Replace($"{Path.Combine(_tempDownloadPath, randomDirName)}\\", @"videos\");
                 await _storage.WriteFileAsync(blobVideoPath, filepath);
                 outputPath= Path.Combine(Globals.UserDataPath, Path.ChangeExtension(blobVideoPath, "info.json"));
 
