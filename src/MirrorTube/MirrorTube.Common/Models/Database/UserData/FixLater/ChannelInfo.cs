@@ -1,7 +1,8 @@
 ﻿using ServiceStack.DataAnnotations;
 
-namespace MirrorTube.Common.Models.Database.UserData
+namespace MirrorTube.Common.Models.Database.UserData.FixLater
 {
+    [Obsolete]
     public class ChannelInfo
     {
         [PrimaryKey]

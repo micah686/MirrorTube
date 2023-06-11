@@ -1,10 +1,12 @@
-﻿namespace MirrorTube.Common.Models.Database.UserData
+﻿using ServiceStack.DataAnnotations;
+
+namespace MirrorTube.Common.Models.Database.UserData
 {
     public class PlaylistInfo
     {
-        public string VideoId { get; set; }
+        [PrimaryKey]
+        public int PlaylistId { get; set; }
         public string? PlaylistTitle { get; set; }
-        public int EntryNumber { get; set; }
         public string? PlaylistUrl { get; set; }
     }
 }

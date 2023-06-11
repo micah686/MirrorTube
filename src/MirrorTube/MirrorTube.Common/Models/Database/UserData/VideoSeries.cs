@@ -5,7 +5,6 @@ namespace MirrorTube.Common.Models.Database.UserData
     public class VideoSeries
     {
         [PrimaryKey]
-        [ForeignKey(typeof(VideoInfoLatest))]
         public string? VideoId { get; set; }
 
         public string? Series { get; set; }

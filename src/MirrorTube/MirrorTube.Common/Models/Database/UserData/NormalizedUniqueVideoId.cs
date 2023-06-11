@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace MirrorTube.Common.Models.Database.UserData
 {
-    public class VideoInfoHistory
+    public class NormalizedUniqueVideoId
     {
         [PrimaryKey]
-        public HexId UniqueVideoId { get; set; }
-        public string VideoId { get; set; }
-        public DateTime MetadataDate { get; set; }
+        public int Id { get; set; }
+        public HexId VideoId { get; set; }
     }
 }

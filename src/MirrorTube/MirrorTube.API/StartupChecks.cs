@@ -3,6 +3,7 @@ using MirrorTube.Common.Configuration;
 using MirrorTube.Common.Secure;
 using ServiceStack.OrmLite;
 using MirrorTube.Common.Models.Database.UserData;
+using MirrorTube.API.Database;
 
 namespace MirrorTube.API
 {
@@ -18,7 +19,7 @@ namespace MirrorTube.API
             }
             DownloadBinaries();
 
-            CreateTables(appConfig);
+            InitDatabase.Init(appConfig);
         }
 
         private static void CreateDirectories()

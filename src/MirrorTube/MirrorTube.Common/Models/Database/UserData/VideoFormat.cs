@@ -6,7 +6,6 @@ namespace MirrorTube.Common.Models.Database.UserData
     public class VideoFormat
     {
         [PrimaryKey]
-        [ForeignKey(typeof(VideoInfoLatest))]
         public string? VideoID { get; set; }
 
         //audio
