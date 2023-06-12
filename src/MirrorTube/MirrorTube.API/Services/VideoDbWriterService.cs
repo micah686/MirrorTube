@@ -1,18 +1,17 @@
 ﻿using MirrorTube.API.Interfaces;
 using Newtonsoft.Json;
 using YoutubeDLSharp.Metadata;
-using AutoMapper;
 using System.Text;
 using MirrorTube.Common.Models;
 using MirrorTube.API.Helpers;
 using Hangfire.Server;
-using Polly;
+
 
 namespace MirrorTube.API.Services
 {
     public class VideoDbWriterService : IVideoDbWriterService
     {      
-        private readonly IMapper _mapper;
+        //private readonly IMapper _mapper;
         public VideoDbWriterService()
         {
             //_mapper = mapper;

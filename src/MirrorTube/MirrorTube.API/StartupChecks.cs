@@ -1,9 +1,7 @@
 ﻿using Config.Net;
 using MirrorTube.Common.Configuration;
 using MirrorTube.Common.Secure;
-using ServiceStack.OrmLite;
 using MirrorTube.Common.Models.Database.UserData;
-using MirrorTube.API.Database;
 
 namespace MirrorTube.API
 {
@@ -19,7 +17,7 @@ namespace MirrorTube.API
             }
             DownloadBinaries();
 
-            InitDatabase.Init(appConfig);
+
         }
 
         private static void CreateDirectories()
@@ -41,12 +39,7 @@ namespace MirrorTube.API
 
         private static void CreateTables(IConfigurationRoot appConfig)
         {
-            var dbFactory = new OrmLiteConnectionFactory(appConfig.GetConnectionString("DatabaseConnection"), PostgreSqlDialect.Provider);
-
-            using (var db = dbFactory.Open())
-            {
-                db.DropAndCreateTable<VideoInfoHistory>();
-            }
+            
         }
     }
 }

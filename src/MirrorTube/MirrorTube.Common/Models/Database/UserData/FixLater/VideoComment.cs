@@ -1,11 +1,8 @@
-﻿using ServiceStack.DataAnnotations;
-
-namespace MirrorTube.Common.Models.Database.UserData.FixLater
+﻿namespace MirrorTube.Common.Models.Database.UserData.FixLater
 {
     [Obsolete]
     public class VideoComment
     {
-        [PrimaryKey]
         public string CommentId { get; set; }
         public string VideoId { get; set; }
         public string Author { get; set; }

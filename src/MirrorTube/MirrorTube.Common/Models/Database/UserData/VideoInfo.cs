@@ -1,10 +1,7 @@
-﻿using ServiceStack.DataAnnotations;
-
-namespace MirrorTube.Common.Models.Database.UserData
+﻿namespace MirrorTube.Common.Models.Database.UserData
 {
     public class VideoInfo
     {
-        [PrimaryKey]
         public HexId UniqueVideoId { get; set; }
         public string? VideoID { get; set; }
         public DateTime MetadataScrapeDate { get; } = DateTime.UtcNow;

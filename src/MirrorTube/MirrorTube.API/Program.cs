@@ -14,8 +14,7 @@ namespace MirrorTube.API
         
         public static void Main(string[] args)
         {            
-            var appConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-            ServiceStack.Licensing.RegisterLicense(appConfig["servicestack:license"]);
+            var appConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();            
 
 
             StartupChecks.RunStartupChecks(appConfig);
@@ -35,7 +34,6 @@ namespace MirrorTube.API
             builder.Services.AddHangfire(configuration =>
             {
                 configuration.UsePostgreSqlStorage(appConfig.GetConnectionString("DatabaseConnection"));
-                configuration.UseDarkModeSupportForDashboard();
                 configuration.UseSimpleAssemblyNameTypeSerializer();
                 configuration.UseRecommendedSerializerSettings();
                 configuration.UseDashboardMetrics(new DashboardMetric[]

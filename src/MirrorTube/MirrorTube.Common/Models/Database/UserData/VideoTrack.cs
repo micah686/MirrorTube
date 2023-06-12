@@ -1,11 +1,7 @@
-﻿using ServiceStack.DataAnnotations;
-using System.ComponentModel.DataAnnotations;
-
-namespace MirrorTube.Common.Models.Database.UserData
+﻿namespace MirrorTube.Common.Models.Database.UserData
 {
     public class VideoTrack
     {
-        [PrimaryKey]
         public string? VideoID { get; set; }
 
         public string? Track { get; set; }

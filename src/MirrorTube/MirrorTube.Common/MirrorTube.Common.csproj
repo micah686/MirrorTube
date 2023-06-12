@@ -10,7 +10,6 @@
     <PackageReference Include="Acrobit.AcroFS" Version="2.1.16" />
     <PackageReference Include="Blake3" Version="0.5.1" />
     <PackageReference Include="SecureStore" Version="1.1.0" />
-    <PackageReference Include="ServiceStack.Interfaces.Core" Version="6.8.0" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace MirrorTube.Common.Configuration.Storage
+﻿namespace MirrorTube.Common.Configuration.Storage
 {
     public interface ILocalConfig
     {

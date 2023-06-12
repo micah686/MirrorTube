@@ -1,10 +1,8 @@
-﻿using FluentFTP;
-using FluentStorage;
+﻿using FluentStorage;
 using FluentStorage.Blobs;
 using MirrorTube.API.Interfaces;
 using MirrorTube.Common.Configuration;
 using MirrorTube.Common.Configuration.Storage;
-using Renci.SshNet;
 using System.Net;
 
 namespace MirrorTube.API.Services
@@ -24,9 +22,6 @@ namespace MirrorTube.API.Services
             storage = storageSettings.StorageType switch
             {
                 StorageType.Local => GetLocalStorage(storageSettings.StorageConfig.LocalConfig),
-                StorageType.FTP => GetFtpStorage(storageSettings.StorageConfig.FtpConfig),
-                StorageType.SFTP => GetSftpStorage(storageSettings.StorageConfig.SftpConfig),
-                StorageType.ASWS3 => GetAwsS3Storage(storageSettings.StorageConfig.AWSS3Config),
                 _ => StorageFactory.Blobs.DirectoryFiles(Globals.UserDataPath),
             };
             return storage;
@@ -38,32 +33,6 @@ namespace MirrorTube.API.Services
             if(localConfig.DirectoryPath == null) { localConfig.DirectoryPath = Globals.UserDataPath; }
             storage = StorageFactory.Blobs.DirectoryFiles(localConfig.DirectoryPath);
             return storage;
-        }
-        private IBlobStorage GetFtpStorage(IFtpConfig ftpConfig)
-        {
-            IBlobStorage storage;
-            var client = new AsyncFtpClient(ftpConfig.Hostname, new NetworkCredential(ftpConfig.Username, ftpConfig.Password), ftpConfig.Port);
-            storage = StorageFactory.Blobs.FtpFromFluentFtpClient(client);
-            return storage;
-        }
-        private IBlobStorage GetSftpStorage(ISftpConfig sftpConfig)
-        {
-            IBlobStorage storage;
-            if(string.IsNullOrEmpty(sftpConfig.PrivateKeyFile))
-            {
-                storage = StorageFactory.Blobs.Sftp(sftpConfig.Hostname, sftpConfig.Port, sftpConfig.Username, sftpConfig.Password);
-            }
-            else
-            {
-                storage = StorageFactory.Blobs.Sftp(sftpConfig.Hostname, sftpConfig.Username, new PrivateKeyFile(sftpConfig.PrivateKeyFile));
-            }
-            return storage;
-        }
-        private IBlobStorage GetAwsS3Storage(IAWSS3Config awsS3Config)
-        {
-            IBlobStorage storage;
-            storage = StorageFactory.Blobs.AwsS3(awsS3Config.AccessKeyId, awsS3Config.SecretAccessKey, awsS3Config.SessionToken, awsS3Config.BucketName, awsS3Config.RegionEndpoint);
-            return storage;
-        }
+        }        
     }
 }
