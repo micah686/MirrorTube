@@ -1,4 +1,6 @@
-﻿using MirrorTube.Common.Configuration;
+﻿global using System.ComponentModel.DataAnnotations.Schema;
+global using System.ComponentModel.DataAnnotations;
+using MirrorTube.Common.Configuration;
 
 namespace MirrorTube.Common
 {

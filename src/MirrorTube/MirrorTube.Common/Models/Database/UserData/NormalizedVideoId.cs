@@ -2,6 +2,8 @@
 {
     public class NormalizedVideoId
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string VideoId { get; set; }
     }

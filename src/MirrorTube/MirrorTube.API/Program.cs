@@ -2,9 +2,10 @@ global using MirrorTube.Common;
 using Hangfire;
 using Hangfire.Dashboard;
 using Hangfire.PostgreSql;
+using Microsoft.EntityFrameworkCore;
+using MirrorTube.API.Database.UserData;
 using MirrorTube.API.Interfaces;
 using MirrorTube.API.Services;
-using ServiceStack;
 
 namespace MirrorTube.API
 {
@@ -28,6 +29,10 @@ namespace MirrorTube.API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            //EF Core
+            builder.Services.AddDbContext<UserDataContext>(options =>
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DatabaseConnection")));
 
 
             //Hangfire

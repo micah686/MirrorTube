@@ -4,7 +4,6 @@ using Hangfire.Storage;
 using Microsoft.AspNetCore.Mvc;
 using MirrorTube.API.Services;
 using Newtonsoft.Json;
-using ServiceStack;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 using System.Linq.Expressions;
 
