@@ -2,6 +2,9 @@
 using MirrorTube.Common.Configuration;
 using MirrorTube.Common.Secure;
 using MirrorTube.Common.Models.Database.UserData;
+using Npgsql;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using MirrorTube.API.Database;
 
 namespace MirrorTube.API
 {
@@ -17,7 +20,7 @@ namespace MirrorTube.API
             }
             DownloadBinaries();
 
-
+            Task.Run(() => InitDatabase.CreateDbAndSchema("MirrorTubeDb", "mirrortube"));
         }
 
         private static void CreateDirectories()
@@ -37,9 +40,6 @@ namespace MirrorTube.API
             if (!File.Exists(ffprobe)) { YoutubeDLSharp.Utils.DownloadFFprobe(Path.GetDirectoryName(ffprobe)); }
         }
 
-        private static void CreateTables(IConfigurationRoot appConfig)
-        {
-            
-        }
+        
     }
 }
