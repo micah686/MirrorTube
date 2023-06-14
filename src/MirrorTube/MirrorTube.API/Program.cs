@@ -32,7 +32,8 @@ namespace MirrorTube.API
 
             //EF Core
             builder.Services.AddDbContext<UserDataContext>(options =>
-                options.UseNpgsql(builder.Configuration.GetConnectionString("DatabaseConnection")));
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DatabaseConnection"),
+                x => x.MigrationsHistoryTable("__CustomMigrations", "mirrortube")));
 
 
             //Hangfire
