@@ -4,6 +4,5 @@
     {
         public int PlaylistId { get; set; }
         public HexId UniqueVideoId { get; set; }
-        public int Position { get; set; }
     }
 }

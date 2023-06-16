@@ -43,9 +43,9 @@
         public string Location { get; set; }
 
         //break these out into own tables?
-        public string[]? VideoCast { get; set; }
-        public string[]? Categories { get; set; }
-        public string[]? Tags { get; set; }
+        public int[]? VideoCast { get; set; } //use normalized tables for lookup
+        public int[]? Categories { get; set; }
+        public int[]? Tags { get; set; }
         public Availability? Availability { get; set; }
 
     }
