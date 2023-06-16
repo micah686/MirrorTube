@@ -1,10 +1,21 @@
 ﻿namespace MirrorTube.Common.Models.Database.UserData
 {
-    public class VideoInfo
+    
+    public class VideoInfoHistory: VideoInfoBase
     {
-        public HexId UniqueVideoId { get; set; }
-        public string? VideoID { get; set; }
-        public DateTime MetadataScrapeDate { get; } = DateTime.UtcNow;
+        public int HistoryId { get; set; }
+    }
+
+    public class VideoInfo: VideoInfoBase
+    {
+
+    }
+
+    public abstract class VideoInfoBase
+    {
+        public string VideoId { get; set; } //uniqueID: //webpageURL+externalVideoId+title
+        public string? ExternalVideoID { get; set; } //videoID grabbed by external tools, like yt-dlp
+        public DateTimeOffset MetadataScrapeDate { get; } = DateTimeOffset.UtcNow;
         public long ThumbnailPathId { get; set; }
 
 
