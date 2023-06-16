@@ -1,6 +1,6 @@
 ﻿namespace MirrorTube.Common.Models.Database.UserData
 {
-    
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public class VideoInfoHistory: VideoInfoBase
     {
         public int HistoryId { get; set; }
@@ -8,11 +8,12 @@
 
     public class VideoInfo: VideoInfoBase
     {
-
+        //empty so that it inherits from abstract class
     }
 
     public abstract class VideoInfoBase
     {
+
         public string VideoId { get; set; } //uniqueID: //webpageURL+externalVideoId+title
         public string? ExternalVideoID { get; set; } //videoID grabbed by external tools, like yt-dlp
         public DateTimeOffset MetadataScrapeDate { get; } = DateTimeOffset.UtcNow;
@@ -39,8 +40,8 @@
         public string? ChannelUrl { get; set; }
         public string? ExtractorKey { get; set; }
         public string? License { get; set; }
-        public string Uploader { get; set; }
-        public string Location { get; set; }
+        public string? Uploader { get; set; }
+        public string? Location { get; set; }
 
         //break these out into own tables?
         public int[]? VideoCast { get; set; } //use normalized tables for lookup
@@ -49,4 +50,5 @@
         public Availability? Availability { get; set; }
 
     }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 }
