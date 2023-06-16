@@ -10,7 +10,7 @@ namespace MirrorTube.API
 {
     public static class StartupChecks
     {
-        internal static void RunStartupChecks(IConfigurationRoot appConfig)
+        internal static void RunStartupChecks()
         {
             CreateDirectories();
             Globals.ConfigSettings = new ConfigurationBuilder<ISettingsRoot>().UseJsonFile(Path.Combine(Globals.ServerDataPath, "config.json")).Build();
