@@ -35,6 +35,7 @@
   <ItemGroup>    
     <PackageReference Include="Acrobit.AcroFS" Version="2.1.19" />    
     <PackageReference Include="AutoMapper.EF6" Version="2.1.1" />    
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />    
     <PackageReference Include="EntityFrameworkCore.Triggered.Extensions" Version="3.2.2" />    
     <PackageReference Include="FluentStorage" Version="5.2.1" />    
     <PackageReference Include="Hangfire.PostgreSql" Version="1.19.12" />    

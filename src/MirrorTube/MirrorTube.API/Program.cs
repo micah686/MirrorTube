@@ -30,6 +30,8 @@ namespace MirrorTube.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddAutoMapper(typeof(UserDataProfile));
+
             //EF Core
             builder.Services.AddDbContext<UserDataContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DatabaseConnection"),
