@@ -25,7 +25,7 @@ namespace MirrorTube.API.Database.UserData
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseNpgsql(@"User ID=postgres;Password=123456;Host=localhost;Port=5432;Database=postgres;Include Error Detail=true")
+                .UseNpgsql(InitDatabase.GetConnectionString())
                 .UseTriggers(triggerOptions => {
                     triggerOptions.AddTrigger<VideoHistoryAddTrigger>();
                 });

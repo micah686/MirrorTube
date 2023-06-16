@@ -4,11 +4,11 @@ namespace MirrorTube.API.Database
 {
     public class InitDatabase
     {
-        public static async Task CreateDbAndSchema(string dbName, string schemaName)
+        private const string DB_NAME = "MirrorTubeDb";
+        public static async Task CreateDbAndSchema(string schemaName)
         {
             try
             {
-                dbName = dbName.ToLower();
                 schemaName = schemaName.ToLower();
                 var connectionString = "Host=localhost;Username=postgres;Password=123456;"; //no database parameter
                 using (var dataSource = NpgsqlDataSource.Create(connectionString))
@@ -21,14 +21,14 @@ namespace MirrorTube.API.Database
                         dbList.Add(reader.GetString(0));
                     }
 
-                    if (!dbList.Contains(dbName))
+                    if (!dbList.Contains(DB_NAME))
                     {
-                        var cmd = dataSource.CreateCommand($"CREATE DATABASE {dbName}");
+                        var cmd = dataSource.CreateCommand($"CREATE DATABASE {DB_NAME}");
                         await cmd.ExecuteScalarAsync();
                     }
                 }
 
-                using (var dataSource = NpgsqlDataSource.Create(connectionString + $"Database={dbName};"))
+                using (var dataSource = NpgsqlDataSource.Create(connectionString + $"Database={DB_NAME};"))
                 {
                     var cmd = dataSource.CreateCommand($"CREATE SCHEMA IF NOT EXISTS {schemaName}");
                     await cmd.ExecuteScalarAsync();
@@ -40,5 +40,21 @@ namespace MirrorTube.API.Database
                 throw;
             }            
         }
+
+        public static string GetBaseConnectionString()
+        {
+            return "Host=localhost;Username=postgres;Password=123456;Include Error Detail=true;";
+        }
+
+        public static string GetConnectionString()
+        {
+            return $"Host=localhost;Username=postgres;Password=123456;Database={DB_NAME}";
+        }
+    }
+
+    public enum DatabaseSchema
+    {
+        UserData,
+        Identity
     }
 }
