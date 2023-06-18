@@ -54,7 +54,7 @@ namespace MirrorTube.API.Services
                         videoData.ModifiedDate ?.ToString() ?? "",
                         videoData.ModifiedTimestamp ?.ToString() ?? ""
                     };
-                GenerateUniqueID(mixValues);
+                
             }
             catch (Exception ex)
             {
@@ -65,11 +65,7 @@ namespace MirrorTube.API.Services
 
         
 
-        public HexId GenerateUniqueID(IEnumerable<string> mixValues)
-        {
-            HexId hexId = Common.Models.HexId.GenerateUniqueHexId(mixValues);
-            return hexId;
-        }
+        
 
     }
     
