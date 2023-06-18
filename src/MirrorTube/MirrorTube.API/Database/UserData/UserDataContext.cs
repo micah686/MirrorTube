@@ -25,7 +25,7 @@ namespace MirrorTube.API.Database.UserData
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseNpgsql(InitDatabase.GetConnectionString())
+                .UseNpgsql(DbHelper.GetConnectionString())
                 .UseTriggers(triggerOptions => {
                     triggerOptions.AddTrigger<VideoHistoryAddTrigger>();
                 });

@@ -2,6 +2,7 @@
 using Hangfire.Dashboard;
 using Hangfire.PostgreSql;
 using Microsoft.EntityFrameworkCore;
+using MirrorTube.API.Database;
 using MirrorTube.API.Database.UserData;
 using MirrorTube.API.Interfaces;
 using MirrorTube.API.Services;
@@ -29,7 +30,7 @@ namespace MirrorTube.API
             //EF Core
             builder.Services.AddDbContext<UserDataContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DatabaseConnection"),
-                x => x.MigrationsHistoryTable("__CustomMigrations", "mirrortube")));
+                x => x.MigrationsHistoryTable("__CustomMigrations", DatabaseSchema.UserData.ToString())));
 
 
             //Hangfire

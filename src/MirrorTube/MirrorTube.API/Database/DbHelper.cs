@@ -2,16 +2,14 @@
 
 namespace MirrorTube.API.Database
 {
-    public class InitDatabase
+    public class DbHelper
     {
         private const string DB_NAME = "MirrorTubeDb";
-        public static async Task CreateDbAndSchema(string schemaName)
+        public static async Task CreateInitialDb()
         {
             try
-            {
-                schemaName = schemaName.ToLower();
-                var connectionString = "Host=localhost;Username=postgres;Password=123456;"; //no database parameter
-                using (var dataSource = NpgsqlDataSource.Create(connectionString))
+            {              
+                using (var dataSource = NpgsqlDataSource.Create(GetBaseConnectionString()))
                 {
                     var dbQuery = dataSource.CreateCommand("SELECT datname FROM pg_database;");
                     var dbList = new List<string>();
@@ -28,10 +26,13 @@ namespace MirrorTube.API.Database
                     }
                 }
 
-                using (var dataSource = NpgsqlDataSource.Create(connectionString + $"Database={DB_NAME};"))
+                using (var dataSource = NpgsqlDataSource.Create(GetConnectionString()))
                 {
-                    var cmd = dataSource.CreateCommand($"CREATE SCHEMA IF NOT EXISTS {schemaName}");
-                    await cmd.ExecuteScalarAsync();
+                    foreach (var name in Enum.GetNames(typeof(DatabaseSchema)))
+                    {
+                        var cmd = dataSource.CreateCommand($"CREATE SCHEMA IF NOT EXISTS {name}");
+                        await cmd.ExecuteScalarAsync();
+                    }                                        
                 }
             }
             catch (Exception ex)

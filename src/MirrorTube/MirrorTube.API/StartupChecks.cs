@@ -20,7 +20,7 @@ namespace MirrorTube.API
             }
             DownloadBinaries();
 
-            Task.Run(() => InitDatabase.CreateDbAndSchema("mirrortube"));
+            Task.Run(() => DbHelper.CreateInitialDb());
         }
 
         private static void CreateDirectories()
