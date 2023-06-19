@@ -4,7 +4,7 @@ namespace MirrorTube.API.Database
 {
     public class DbHelper
     {
-        private const string DB_NAME = "MirrorTubeDb";
+        private const string DB_NAME = "mirrortubedb";
         public static async Task CreateInitialDb()
         {
             try
@@ -29,7 +29,7 @@ namespace MirrorTube.API.Database
                 using (var dataSource = NpgsqlDataSource.Create(GetConnectionString()))
                 {
                     foreach (var name in Enum.GetNames(typeof(DatabaseSchema)))
-                    {
+                    {                        
                         var cmd = dataSource.CreateCommand($"CREATE SCHEMA IF NOT EXISTS {name}");
                         await cmd.ExecuteScalarAsync();
                     }                                        
@@ -42,7 +42,7 @@ namespace MirrorTube.API.Database
             }            
         }
 
-        public static string GetBaseConnectionString()
+        private static string GetBaseConnectionString()
         {
             return "Host=localhost;Username=postgres;Password=123456;Include Error Detail=true;";
         }
@@ -55,7 +55,7 @@ namespace MirrorTube.API.Database
 
     public enum DatabaseSchema
     {
-        UserData,
-        Identity
+        userdata,
+        identity
     }
 }

@@ -13,16 +13,16 @@ namespace MirrorTube.API.Database.UserData.Triggers
 
         Task IBeforeSaveTrigger<VideoInfo>.BeforeSave(ITriggerContext<VideoInfo> context, CancellationToken cancellationToken)
         {
-            if(context.ChangeType == ChangeType.Modified)
-            {
-                if(context.UnmodifiedEntity != null)
-                {
-                    _userDataContext.VideoInfoHistory.Add(new VideoInfoHistory
-                    {
-                        ExternalVideoID = context.UnmodifiedEntity.ExternalVideoID //TODO: Set up automapper
-                    });
-                }
-            }
+            //if(context.ChangeType == ChangeType.Modified)
+            //{
+            //    if(context.UnmodifiedEntity != null)
+            //    {
+            //        _userDataContext.VideoInfoHistory.Add(new VideoInfoHistory
+            //        {
+            //            ExternalVideoID = context.UnmodifiedEntity.ExternalVideoID //TODO: Set up automapper
+            //        });
+            //    }
+            //}
             
             return Task.CompletedTask;
         }

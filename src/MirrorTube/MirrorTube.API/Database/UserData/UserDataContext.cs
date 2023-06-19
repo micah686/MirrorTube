@@ -14,24 +14,26 @@ namespace MirrorTube.API.Database.UserData
         }
 
         public DbSet<StoreUser> MyStore { get; set; }
+        public DbSet<StoreArchive> MyStore2 { get; set; }
 
-        public DbSet<VideoInfoHistory> VideoInfoHistory { get; set; }
+        //public DbSet<VideoInfoHistory> VideoInfoHistory { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.HasDefaultSchema("mirrortube");
+            builder.HasDefaultSchema(DatabaseSchema.userdata.ToString());
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder
-                .UseNpgsql(DbHelper.GetConnectionString())
-                .UseTriggers(triggerOptions => {
-                    triggerOptions.AddTrigger<VideoHistoryAddTrigger>();
-                });
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder
+        //        .UseNpgsql(DbHelper.GetConnectionString())
+        //        .UseTriggers(triggerOptions => {
+        //            //triggerOptions.AddTrigger<VideoHistoryAddTrigger>();
+        //            triggerOptions.AddTrigger<TestTrigger>();
+        //        });
 
-            base.OnConfiguring(optionsBuilder);
-        }
+        //    base.OnConfiguring(optionsBuilder);
+        //}
     }
 
     public class StoreUser
@@ -41,7 +43,17 @@ namespace MirrorTube.API.Database.UserData
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string FullName { get; private set; }
+        public string FullName { get; set; }
 
+    }
+
+    public class StoreArchive
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public string FullName { get; set; }
+        public int ExternalId { get; set; }
+        public DateTimeOffset Date { get; set; } = DateTimeOffset.Now;
     }
 }
