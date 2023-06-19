@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MirrorTube.API.Database;
 using MirrorTube.API.Database.UserData;
 using MirrorTube.API.Database.UserData.MapperProfiles;
+using MirrorTube.API.Database.UserData.Triggers;
 using MirrorTube.API.Interfaces;
 using MirrorTube.API.Services;
 
@@ -29,10 +30,22 @@ namespace MirrorTube.API
             });
 
             //EF Core
+            //builder.Services.AddDbContext<UserDataContext>(options =>
+            //    options.UseNpgsql(DbHelper.GetConnectionString(),
+            //    x => x.MigrationsHistoryTable("__CustomMigrations", DatabaseSchema.userdata.ToString())
+            //    ));;
+
             builder.Services.AddDbContext<UserDataContext>(options =>
-                options.UseNpgsql(DbHelper.GetConnectionString(),
-                x => x.MigrationsHistoryTable("__CustomMigrations", DatabaseSchema.userdata.ToString())
-                ));
+            {
+                options.UseNpgsql(DbHelper.GetConnectionString(), x =>
+                {
+                    x.MigrationsHistoryTable("__CustomMigration", DatabaseSchema.userdata.ToString());
+                });
+                options.UseTriggers(t =>
+                {
+                    t.AddTrigger<TestTrigger>();
+                });
+            });
 
 
 
