@@ -44,6 +44,7 @@ namespace MirrorTube.API
                 options.UseTriggers(t =>
                 {
                     t.AddTrigger<TestTrigger>();
+                    t.AddTrigger<ResourcesTrigger>();
                 });
             });
 

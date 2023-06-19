@@ -14,7 +14,7 @@ namespace MirrorTube.API.Database.UserData.Triggers
         Task IBeforeSaveTrigger<TestUser>.BeforeSave(ITriggerContext<TestUser> context, CancellationToken cancellationToken)
         {
             context.Entity.DateTime = DateTime.UtcNow;
-            _userDataContext.Users.Add(context.Entity);
+            //_userDataContext.Users.Add(context.Entity);
             return Task.CompletedTask;
         }
     }

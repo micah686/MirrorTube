@@ -13,11 +13,16 @@ namespace MirrorTube.API.Database.UserData
         {
         }
 
-        public DbSet<TestUser> Users { get; set; }        
+        //public DbSet<TestUser> Users { get; set; }
+        public DbSet<LookupResources> LookupResources { get; set; }
+        public DbSet<LookupResourcesHistory> LookupResourcesHistory { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.HasDefaultSchema(DatabaseSchema.userdata.ToString());
+
+            builder.Entity<LookupResources>().HasKey(h => h.Id);
+            builder.Entity<LookupResourcesHistory>().HasKey(h => h.AcroFsId);
         }
 
     }

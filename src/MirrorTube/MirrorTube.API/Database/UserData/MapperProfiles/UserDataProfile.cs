@@ -7,7 +7,8 @@ namespace MirrorTube.API.Database.UserData.MapperProfiles
     {
         public UserDataProfile()
         {
-            CreateMap<VideoInfo, VideoInfoHistory>();
+            CreateMap<LookupResources, LookupResourcesHistory>()
+                .ForMember(dest => dest.GroupId, opt => opt.MapFrom(src => src.Id));
         }
     }
 }
