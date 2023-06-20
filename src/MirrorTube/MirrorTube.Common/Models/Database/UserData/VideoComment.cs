@@ -1,13 +1,13 @@
-﻿namespace MirrorTube.Common.Models.Database.UserData.FixLater
+﻿namespace MirrorTube.Common.Models.Database.UserData
 {
     [Obsolete]
     public class VideoComment
     {
         public string CommentId { get; set; }
-        public string VideoId { get; set; }
+        public int VideoId { get; set; } //link to normalized table
         public string Author { get; set; }
         public string AuthorID { get; set; }
-        public VideoCommentPicture? AuthorPicturePath { get; set; }
+        public long AcroFsId { get; set; } //foreign key to resources
 
         public string HtmlComment { get; set; }
 

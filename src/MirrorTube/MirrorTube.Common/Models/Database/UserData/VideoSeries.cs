@@ -2,7 +2,7 @@
 {
     public class VideoSeries
     {
-        public string? VideoId { get; set; }
+        public int VideoId { get; set; } //link to normalized table
 
         public string? Series { get; set; }
 

@@ -2,7 +2,7 @@
 {
     public class VideoFormat
     {
-        public string? VideoID { get; set; }
+        public int VideoID { get; set; } //link to normalized table
 
         //audio
         public double? AudioBitrate { get; set; }

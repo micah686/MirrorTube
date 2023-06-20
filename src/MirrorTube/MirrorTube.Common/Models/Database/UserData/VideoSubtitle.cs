@@ -2,7 +2,7 @@
 {
     public class VideoSubtitle
     {
-        public string? VideoId { get; set; }
+        public int VideoId { get; set; } //link to normalized table
         public string? SubtitleData { get; set; }
         public SubtitleType SubtitleType { get; set; }
         public string SubtitleLanguage { get; set; }
