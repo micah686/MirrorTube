@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MirrorTube.Common.Models.Database.UserData
 {
-    public class UserUploaderGroups
+    public class UserUploaderCustomGroups
     {
         public string Id { get; set; }
         public int GroupId { get; set; }

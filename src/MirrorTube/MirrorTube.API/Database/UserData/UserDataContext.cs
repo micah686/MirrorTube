@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MirrorTube.API.Database.UserData.Configuration;
 using MirrorTube.API.Database.UserData.Triggers;
 using MirrorTube.Common.Models.Database.UserData;
 using System;
@@ -13,7 +14,9 @@ namespace MirrorTube.API.Database.UserData
         {
         }
 
-        //public DbSet<TestUser> Users { get; set; }
+        
+        public DbSet<NormalizedLanguages> NormalizedLanguages { get; set; }
+
         public DbSet<LookupResources> LookupResources { get; set; }
         public DbSet<LookupResourcesHistory> LookupResourcesHistory { get; set; }
 
@@ -23,6 +26,10 @@ namespace MirrorTube.API.Database.UserData
 
             builder.Entity<LookupResources>().HasKey(h => h.Id);
             builder.Entity<LookupResourcesHistory>().HasKey(h => h.AcroFsId);
+
+            builder.ApplyConfiguration(new NormalizedLanguagesConfiguration());
+            
+            
         }
 
     }
