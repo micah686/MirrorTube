@@ -4,11 +4,12 @@
     public class VideoInfoHistory: VideoInfoBase
     {
         public int Id { get; set; } //PK
+        public override DateTimeOffset MetadataScrapeDate { get; init; } = DateTimeOffset.UtcNow;
     }
 
     public class VideoInfo: VideoInfoBase
     {
-        //empty so that it inherits from abstract class
+        public override DateTimeOffset MetadataScrapeDate { get; init; } = DateTimeOffset.UtcNow;
     }
 
     public abstract class VideoInfoBase
@@ -16,7 +17,7 @@
 
         public int VideoId { get; set; } //uniqueID: //webpageURL+externalVideoId+title, link to normalized table
         public string? ExternalVideoID { get; set; } //videoID grabbed by external tools, like yt-dlp
-        public DateTimeOffset MetadataScrapeDate { get; } = DateTimeOffset.UtcNow;
+        public virtual DateTimeOffset MetadataScrapeDate { get; init; }
         public long ThumbnailPathId { get; set; }
 
 
