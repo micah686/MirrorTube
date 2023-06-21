@@ -20,12 +20,18 @@ namespace MirrorTube.API.Database.UserData
         public DbSet<LookupResources> LookupResources { get; set; }
         public DbSet<LookupResourcesHistory> LookupResourcesHistory { get; set; }
 
+        public DbSet<VideoInfo> VideoInfo { get; set; }
+        public DbSet<VideoInfoHistory> VideoInfoHistory { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.HasDefaultSchema(DatabaseSchema.userdata.ToString());
 
             builder.Entity<LookupResources>().HasKey(h => h.Id);
             builder.Entity<LookupResourcesHistory>().HasKey(h => h.AcroFsId);
+
+            builder.Entity<VideoInfo>().HasKey(h => h.VideoId);
+            builder.Entity<VideoInfoHistory>().HasKey(h => h.Id);
 
             builder.ApplyConfiguration(new NormalizedLanguagesConfiguration());
             

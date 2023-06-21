@@ -12,8 +12,6 @@ namespace MirrorTube.API.Database.UserData.Configuration
         {
             builder.HasKey(nl => nl.Id);
 
-            //CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(x => x.Parent.TwoLetterISOLanguageName).ToArray();
-            //cultures = cultures.GroupBy(t => t.TwoLetterISOLanguageName).Select(c => c.First()).Where(x => x.TwoLetterISOLanguageName.Length == 2).ToArray();
             CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
                 .OrderBy(x => x.Parent.TwoLetterISOLanguageName)
                 .GroupBy(t => t.TwoLetterISOLanguageName)

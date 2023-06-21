@@ -7,11 +7,9 @@ namespace MirrorTube.API.Database.UserData.Triggers
     public class ResourcesTrigger : IBeforeSaveTrigger<LookupResources>
     {
         private readonly UserDataContext _userDataContext;
-        private readonly IMapper _mapper;
-        public ResourcesTrigger(UserDataContext userDataContext, IMapper mapper)
+        public ResourcesTrigger(UserDataContext userDataContext)
         {
             _userDataContext = userDataContext;
-            _mapper = mapper;
         }
 
         Task IBeforeSaveTrigger<LookupResources>.BeforeSave(ITriggerContext<LookupResources> context, CancellationToken cancellationToken)

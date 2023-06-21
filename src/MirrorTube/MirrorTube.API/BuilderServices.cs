@@ -26,15 +26,10 @@ namespace MirrorTube.API
             //AutoMapper
             builder.Services.AddAutoMapper(m =>
             {
-                m.AddProfile<UserDataProfile>();
+                m.AddProfile<VideoInfoProfile>();
             });
 
             //EF Core
-            //builder.Services.AddDbContext<UserDataContext>(options =>
-            //    options.UseNpgsql(DbHelper.GetConnectionString(),
-            //    x => x.MigrationsHistoryTable("__CustomMigrations", DatabaseSchema.userdata.ToString())
-            //    ));;
-
             builder.Services.AddDbContext<UserDataContext>(options =>
             {
                 options.UseNpgsql(DbHelper.GetConnectionString(), x =>
@@ -45,6 +40,7 @@ namespace MirrorTube.API
                 {
                     t.AddTrigger<TestTrigger>();
                     t.AddTrigger<ResourcesTrigger>();
+                    t.AddTrigger<VideoInfoTrigger>();
                 });
             });
 
