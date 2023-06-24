@@ -18,7 +18,7 @@
         public int ContentId { get; set; } //uniqueID: //webpageURL+externalVideoId+title, link to normalized table
         public string? ExternalVideoID { get; set; } //videoID grabbed by external tools, like yt-dlp
         public virtual DateTimeOffset MetadataScrapeDate { get; init; }
-        public long ThumbnailPathId { get; set; }
+        public long? AcroFsIdThumbnail { get; set; } //thumbnail
 
 
         public int? AgeLimit { get; set; }
@@ -28,16 +28,16 @@
         public long? DislikeCount { get; set; }
         public float? Duration { get; set; }
         public string? Extension { get; set; }
-        public DateTime? ModifiedDate { get; set; }
-        public DateTime? ModifiedTimestamp { get; set; }
-        public DateTime? UploadDate { get; set; }
-        public DateTime? UploadDateTimestamp { get; set; }
+        public DateTimeOffset? ModifiedDate { get; set; }
+        public DateTimeOffset? ModifiedTimestamp { get; set; }
+        public DateTimeOffset? UploadDate { get; set; }
+        public DateTimeOffset? UploadDateTimestamp { get; set; }
         public string? Title { get; set; }
         public bool? WasLive { get; set; }
         public string? WebpageUrl { get; set; }
         public long? ViewCount { get; set; }
         public long? CommentCount { get; set; }
-        public string? ChannelID { get; set; }
+        public string? UserChannelID { get; set; }
         public string? ChannelUrl { get; set; }
         public string? ExtractorKey { get; set; }
         public string? License { get; set; }

@@ -5,15 +5,15 @@
     {
         public string CommentId { get; set; }
         public int ContentId { get; set; } //link to normalized table
-        public string Author { get; set; }
-        public string AuthorID { get; set; }
-        public long AcroFsId { get; set; } //foreign key to resources
+        public string UserDisplayName { get; set; } //Author, (eg: @linustechtips)
+        public string? UserChannelID { get; set; } //AuthorId (eg: UCXuqSBlHAE6Xw-yeJA0Tunw)
+        public long AcroFsIdAvatar { get; set; } //foreign key to resources
 
         public string HtmlComment { get; set; }
 
         public string TextComment { get; set; }
 
-        public DateTime CommentTimestamp { get; set; }
+        public DateTimeOffset CommentTimestamp { get; set; }
         public string ParentComment { get; set; }
         public int? LikeCount { get; set; }
         public int? DislikeCount { get; set; }
