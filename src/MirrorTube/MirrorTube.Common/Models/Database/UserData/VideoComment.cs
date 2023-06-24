@@ -4,7 +4,7 @@
     public class VideoComment
     {
         public string CommentId { get; set; }
-        public int VideoId { get; set; } //link to normalized table
+        public int ContentId { get; set; } //link to normalized table
         public string Author { get; set; }
         public string AuthorID { get; set; }
         public long AcroFsId { get; set; } //foreign key to resources

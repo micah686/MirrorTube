@@ -15,7 +15,7 @@
     public abstract class VideoInfoBase
     {
 
-        public int VideoId { get; set; } //uniqueID: //webpageURL+externalVideoId+title, link to normalized table
+        public int ContentId { get; set; } //uniqueID: //webpageURL+externalVideoId+title, link to normalized table
         public string? ExternalVideoID { get; set; } //videoID grabbed by external tools, like yt-dlp
         public virtual DateTimeOffset MetadataScrapeDate { get; init; }
         public long ThumbnailPathId { get; set; }

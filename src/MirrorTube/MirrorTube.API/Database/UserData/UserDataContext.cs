@@ -30,10 +30,10 @@ namespace MirrorTube.API.Database.UserData
             builder.Entity<LookupResources>().HasKey(h => h.Id);
             builder.Entity<LookupResourcesHistory>().HasKey(h => h.AcroFsId);
 
-            builder.Entity<VideoInfo>().HasKey(h => h.VideoId);
+            builder.Entity<VideoInfo>().HasKey(h => h.ContentId);
             builder.Entity<VideoInfoHistory>().HasKey(h => h.Id);
 
-            builder.ApplyConfiguration(new NormalizedLanguagesConfiguration());
+            //builder.ApplyConfiguration(new NormalizedLanguagesConfiguration());
             
             
         }
