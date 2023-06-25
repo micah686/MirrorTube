@@ -5,8 +5,8 @@
     {
         public string CommentId { get; set; }
         public int ContentId { get; set; } //link to normalized table
-        public string UserDisplayName { get; set; } //Author, (eg: @linustechtips)
-        public string? UserChannelID { get; set; } //AuthorId (eg: UCXuqSBlHAE6Xw-yeJA0Tunw)
+        public string AuthorDisplayName { get; set; } //Author, (eg: @linustechtips)
+        public string? AuthorAccountID { get; set; } //AuthorId (eg: UCXuqSBlHAE6Xw-yeJA0Tunw)
         public long AcroFsIdAvatar { get; set; } //foreign key to resources
 
         public string HtmlComment { get; set; }

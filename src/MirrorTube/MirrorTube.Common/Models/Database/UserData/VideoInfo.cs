@@ -37,8 +37,8 @@
         public string? WebpageUrl { get; set; }
         public long? ViewCount { get; set; }
         public long? CommentCount { get; set; }
-        public string? UserChannelID { get; set; }
-        public string? ChannelUrl { get; set; }
+        public string? AccountID { get; set; }
+        public string? AccountUrl { get; set; }
         public string? ExtractorKey { get; set; }
         public string? License { get; set; }
         public string? Uploader { get; set; }
