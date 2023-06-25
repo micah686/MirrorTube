@@ -6,18 +6,18 @@
 
         //audio
         public double? AudioBitrate { get; set; }
-        public string? AudioCodec { get; set; }
+        public int AudioCodecId { get; set; }
         public double? AudioSamplingRate { get; set; }
         public short? AudioChannels { get; set; }
 
         //Video
-        public string? DynamicRange { get; set; }
+        public int DynamicRangeId { get; set; }
         public double? VideoBitrate { get; set; }
         public float? FrameRate { get; set; }
-        public string? VideoCodec { get; set; }
-        public string? Resolution { get; set; }
+        public int VideoCodecId { get; set; }
+        public int ResolutionId { get; set; }
         public int? Width { get; set; }
         public int? Height { get; set; }
-        public string? FriendlyVideoResolution { get; set; }
+        public int FriendlyVideoResolutionId { get; set; }
     }
 }

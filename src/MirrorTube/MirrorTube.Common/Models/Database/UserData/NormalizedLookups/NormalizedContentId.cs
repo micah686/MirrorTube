@@ -1,4 +1,4 @@
-﻿namespace MirrorTube.Common.Models.Database.UserData
+﻿namespace MirrorTube.Common.Models.Database.UserData.NormalizedLookups
 {
     public class NormalizedContentId
     {

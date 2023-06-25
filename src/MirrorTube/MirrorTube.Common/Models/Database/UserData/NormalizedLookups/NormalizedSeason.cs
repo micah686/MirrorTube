@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MirrorTube.Common.Models.Database.UserData
+namespace MirrorTube.Common.Models.Database.UserData.NormalizedLookups
 {
-    public class NormalizedCast
+    public class NormalizedSeason
     {
         public int Id { get; set; }
-        public string Cast { get; set; }
+        public string Season { get; set; }
     }
 }

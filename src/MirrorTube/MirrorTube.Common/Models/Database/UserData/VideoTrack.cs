@@ -10,20 +10,20 @@
 
         public string? TrackId { get; set; }
 
-        public string? Artist { get; set; }
+        public int ArtistId { get; set; }
 
-        public string? Genre { get; set; }
+        public int GenreId { get; set; }
 
         public string? Album { get; set; }
 
         public string? AlbumType { get; set; }
 
-        public string? AlbumArtist { get; set; }
+        public int AlbumArtistId { get; set; }
 
         public int? DiscNumber { get; set; }
 
         public string? ReleaseYear { get; set; }
 
-        public string? Composer { get; set; }
+        public int ComposerId { get; set; }
     }
 }
