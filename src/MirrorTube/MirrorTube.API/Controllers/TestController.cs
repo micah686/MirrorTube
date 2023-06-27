@@ -20,8 +20,7 @@ namespace MirrorTube.API.Controllers
         [HttpGet]
         public async Task<string> DoThing()
         {
-            _userDataContext.Users.Add(new TestUser() { FullName = "joe" });
-            _userDataContext.SaveChanges();
+            
             
             //var json = @"C:\Users\Micah\source\repos\MirrorTube\src\MirrorTube\MirrorTube.API\bin\Debug\net6.0\Data\UserData\youtube\[uFJHdT_ie9U]_20220101_Ochame_Kinou_-_hololive_English_Cover.info.json";
             //await _videoDbWriterService.SaveInfoToDb(json);

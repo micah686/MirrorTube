@@ -2,6 +2,7 @@
 using MirrorTube.API.Database.UserData.Configuration;
 using MirrorTube.API.Database.UserData.Triggers;
 using MirrorTube.Common.Models.Database.UserData;
+using MirrorTube.Common.Models.Database.UserData.NormalizedLookups;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

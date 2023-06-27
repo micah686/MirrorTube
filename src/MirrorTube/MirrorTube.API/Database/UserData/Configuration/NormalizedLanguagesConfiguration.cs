@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MirrorTube.Common.Models.Database.UserData;
+using MirrorTube.Common.Models.Database.UserData.NormalizedLookups;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
@@ -12,6 +12,11 @@ namespace MirrorTube.API.Database.UserData.Configuration
         {
             builder.HasKey(nl => nl.Id);
 
+            SeedLanguages(builder);                     
+        }
+
+        private void SeedLanguages(EntityTypeBuilder<NormalizedLanguages> builder)
+        {
             CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
                 .OrderBy(x => x.Parent.TwoLetterISOLanguageName)
                 .GroupBy(t => t.TwoLetterISOLanguageName)
@@ -21,11 +26,11 @@ namespace MirrorTube.API.Database.UserData.Configuration
             {
                 builder.HasData(new NormalizedLanguages
                 {
-                    Id = i+1,
+                    Id = i + 1,
                     LanguageShort = cultures[i].Parent.TwoLetterISOLanguageName,
                     LanguageDescription = cultures[i].Parent.EnglishName
                 });
-            }            
+            }
         }
     }
 }

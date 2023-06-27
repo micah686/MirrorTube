@@ -30,30 +30,30 @@ namespace MirrorTube.API.Services
 
             try
             {
-                var json = File.ReadAllText(filepath);
-                var videoData = JsonConvert.DeserializeObject<VideoData>(File.ReadAllText(filepath));
-                if (videoData == null) return;
+                //var json = File.ReadAllText(filepath);
+                //var videoData = JsonConvert.DeserializeObject<VideoData>(File.ReadAllText(filepath));
+                //if (videoData == null) return;
 
 
-                //VideoData videoData = _mapper.Map<VideoData>(json);
-                var videoInfo = await VideoInfoFormatter.GetVideoInfo(videoData);
+                ////VideoData videoData = _mapper.Map<VideoData>(json);
+                //var videoInfo = await VideoInfoFormatter.GetVideoInfo(videoData);
 
-                var videoTrack = VideoInfoFormatter.GetTrackData(videoData);
-                var videoSeries = VideoInfoFormatter.GetSeriesData(videoData);
-                var videoFormat = VideoInfoFormatter.GetFormatData(videoData.FormatID, videoData.Formats, videoData.ID);
-                var videoSubtitles = VideoInfoFormatter.GetSubtitleData(videoData.Subtitles);
+                //var videoTrack = VideoInfoFormatter.GetTrackData(videoData);
+                //var videoSeries = VideoInfoFormatter.GetSeriesData(videoData);
+                //var videoFormat = VideoInfoFormatter.GetFormatData(videoData.FormatID, videoData.Formats, videoData.ID);
+                //var videoSubtitles = VideoInfoFormatter.GetSubtitleData(videoData.Subtitles);
 
 
-                //var captions = await GetSubtitleData(json.Subtitles);
+                ////var captions = await GetSubtitleData(json.Subtitles);
 
-                var mixValues = new List<string>()
-                    {   videoData.ID,
-                        videoData.WebpageUrl,
-                        videoData.UploadDate?.ToString()??"",
-                        videoData.Timestamp?.ToString()??"",
-                        videoData.ModifiedDate ?.ToString() ?? "",
-                        videoData.ModifiedTimestamp ?.ToString() ?? ""
-                    };
+                //var mixValues = new List<string>()
+                //    {   videoData.ID,
+                //        videoData.WebpageUrl,
+                //        videoData.UploadDate?.ToString()??"",
+                //        videoData.Timestamp?.ToString()??"",
+                //        videoData.ModifiedDate ?.ToString() ?? "",
+                //        videoData.ModifiedTimestamp ?.ToString() ?? ""
+                //    };
                 
             }
             catch (Exception ex)
